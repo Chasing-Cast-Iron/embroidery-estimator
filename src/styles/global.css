@@ -286,16 +286,14 @@ section { padding: var(--section-pad); }
 }
 
 .hero__logo-card {
-  width: min(100%, 220px);
-  margin: 0 auto 0.9rem;
-  background: #fff;
-  border: 2px solid var(--color-primary-dark);
-  padding: 0.35rem;
+  width: min(100%, 315px);
+  margin: 0 auto 0.95rem;
 }
 
 .hero__service-logo {
   width: 100%;
   height: auto;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.18));
 }
 
 .hero__panel .brand-rule {
@@ -922,7 +920,7 @@ textarea.form-control {
   }
 
   .hero__logo-card {
-    width: min(100%, 250px);
+    width: min(100%, 315px);
   }
 
   .hero__actions {

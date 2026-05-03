@@ -1,5 +1,5 @@
 import embroideryHat from '../assets/embroidery-hat.webp';
-import customEmbroideryLogo from '../assets/custom-embroidery-logo.jpg';
+import customEmbroideryLogo from '../assets/custom-embroidery-logo-transparent.png';
 
 export default function Hero() {
   const scrollTo = (id) => {
