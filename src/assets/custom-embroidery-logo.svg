@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 120 1024 780" role="img" aria-labelledby="title desc">
+  <title id="title">Custom Embroidery</title>
+  <desc id="desc">Custom Embroidery logo with thread, needle, scissors, and the phone number 218-544-0071.</desc>
+  <rect x="0" y="120" width="1024" height="780" fill="#ffffff"/>
+  <g fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M146 361c93 13 190 14 290 3 132-15 237-7 352 22 42 11 72 11 92 0" stroke-width="8"/>
+    <path d="M185 653c92 21 205 19 327-8 128-29 242-31 342-7" stroke-width="7"/>
+    <path d="M245 316c85-122 176-181 271-176 46 2 18 50-23 94-51 55-108 100-173 135" stroke-width="8"/>
+    <path d="M283 395c111-107 216-185 315-236 46-23 69-24 69-1 0 17-22 44-65 82" stroke-width="5"/>
+    <path d="M150 314c57-30 116-27 178 9 95 55 194 56 299 3 77-39 151-28 220 34" stroke-width="5"/>
+    <path d="M608 215c43-59 101-79 166-60 83 25 126 87 130 188" stroke-width="5"/>
+    <path d="M174 443c35-42 72-56 111-40" stroke-width="4"/>
+    <path d="M848 456c-38-42-79-55-121-39" stroke-width="4"/>
+    <path d="M148 474c46 13 112 19 198 18" stroke-width="7"/>
+    <path d="M676 493c94 1 161-8 202-25" stroke-width="7"/>
+    <path d="M170 725c37 13 74 8 112-16 38-24 75-33 112-26" stroke-width="6"/>
+    <path d="M854 725c-37 13-74 8-112-16-38-24-75-33-112-26" stroke-width="6"/>
+    <path d="M343 735c74 31 131 27 169-12 35 38 91 42 168 12" stroke-width="6"/>
+    <path d="M382 807c65-27 108-24 130 10 22-34 65-37 130-10" stroke-width="6"/>
+    <path d="M422 847c59 25 119 25 180 0" stroke-width="6"/>
+    <path d="M722 200h95c25 0 45 20 45 45v105c0 25-20 45-45 45h-95c-25 0-45-20-45-45V245c0-25 20-45 45-45Z" stroke-width="7"/>
+    <path d="M678 248h184M678 345h184" stroke-width="5"/>
+    <path d="M714 226c42 15 83 15 125 0M714 371c42-15 83-15 125 0" stroke-width="4"/>
+    <path d="M804 298c-28-18-58-22-90-11" stroke-width="4"/>
+    <path d="M743 313c28 18 58 22 90 11" stroke-width="4"/>
+    <path d="M825 410l103-84" stroke-width="8"/>
+    <path d="M904 323c-7-29 12-62 45-78 38-18 77-7 87 25s-13 70-51 88c-29 14-60 11-81-7" stroke-width="7"/>
+    <path d="M866 448l124 47" stroke-width="8"/>
+    <path d="M965 488c27-15 66-6 91 22 29 32 29 73 0 91s-75 6-103-27c-22-26-27-59-11-82" stroke-width="7"/>
+    <circle cx="846" cy="429" r="14" stroke-width="6"/>
+    <path d="M440 625c48-48 95-61 141-39 28 14 45 41 51 82" stroke-width="6"/>
+    <path d="M420 626c-6 34 29 58 105 71 70-16 103-43 98-81" stroke-width="7"/>
+    <path d="M471 581l-18-47M510 573l-4-52M548 578l19-49M586 598l43-36" stroke-width="5"/>
+    <circle cx="453" cy="531" r="10" fill="#ffffff" stroke-width="5"/>
+    <circle cx="505" cy="520" r="10" fill="#ffffff" stroke-width="5"/>
+    <circle cx="568" cy="528" r="10" fill="#ffffff" stroke-width="5"/>
+    <circle cx="631" cy="561" r="10" fill="#ffffff" stroke-width="5"/>
+  </g>
+  <g fill="#111111" text-anchor="middle">
+    <text x="512" y="384" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="800" letter-spacing="7">CUSTOM</text>
+    <text x="512" y="535" font-family="Georgia, 'Times New Roman', serif" font-size="108" font-weight="900" letter-spacing="-4">EMBROIDERY</text>
+    <text x="512" y="734" font-family="Arial Black, Arial, sans-serif" font-size="66" font-weight="900" letter-spacing="4">218-544-0071</text>
+  </g>
+  <g fill="#111111">
+    <path d="M302 372l12 24 27 4-20 19 5 27-24-13-24 13 5-27-20-19 27-4 12-24Z"/>
+    <path d="M722 372l12 24 27 4-20 19 5 27-24-13-24 13 5-27-20-19 27-4 12-24Z"/>
+    <circle cx="512" cy="862" r="8"/>
+  </g>
+</svg>
