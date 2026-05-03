@@ -1,5 +1,4 @@
 import embroideryHat from '../assets/embroidery-hat.webp';
-import customEmbroideryLogo from '../assets/custom-embroidery-logo.svg';
 
 export default function Hero() {
   const scrollTo = (id) => {
@@ -10,18 +9,11 @@ export default function Hero() {
     <section className="hero" aria-labelledby="hero-headline">
       <div className="hero__inner">
         <div className="hero__panel">
-          <p className="hero__parent-brand">Chasing Cast Iron</p>
-          <div className="hero__logo-card">
-            <img
-              className="hero__service-logo"
-              src={customEmbroideryLogo}
-              alt="Custom Embroidery logo with phone number 218-544-0071"
-            />
-          </div>
+          <p className="hero__phone">Call 218-544-0071</p>
           <div className="brand-rule" aria-hidden="true" />
-          <p className="hero__eyebrow">Embroidery by Chasing Cast Iron</p>
+          <p className="hero__eyebrow">Chasing Cast Iron</p>
           <h1 className="hero__headline" id="hero-headline">
-            Start an Embroidery Estimate
+            Custom Embroidery
           </h1>
           <p className="hero__subheading">
             Hats, apparel, reunion gear, business apparel, and more. Build a quick estimate,
