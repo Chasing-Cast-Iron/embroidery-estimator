@@ -430,6 +430,11 @@ textarea.form-control {
   margin-top: 0.5rem;
 }
 
+.file-error {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
 .field-optional {
   font-size: 0.8rem;
   font-weight: 400;

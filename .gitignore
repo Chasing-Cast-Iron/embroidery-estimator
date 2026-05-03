@@ -5,3 +5,7 @@ dist-ssr
 .env.local
 .env
 .DS_Store
+# CocoIndex Code (ccc)
+/.cocoindex_code/
+# Playwright CLI local artifacts
+/.playwright-cli/
