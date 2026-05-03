@@ -1,16 +1,56 @@
-# React + Vite
+# Chasing Cast Iron — Custom Embroidery Estimator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + Vite web app that lets customers get an instant price estimate for custom embroidery orders (hats, shirts, jackets, and more) and submit a quote request.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Instant Estimate Calculator** — quantity-tier pricing across 4 stitch-count tiers
+- **Quote Submission Form** — pre-fills from the estimate; supports design file upload
+- **FAQ Accordion**, **How It Works** steps, sticky header with mobile nav
+- Fully mobile-responsive with a burgundy/warm brand palette
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+## Environment Variables
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Variable | Description |
+|---|---|
+| `VITE_FORMSPREE_ENDPOINT` | Formspree form endpoint URL (e.g. `https://formspree.io/f/xxxx`). If not set, the submit button falls back to a `mailto:` link. |
+
+Create a `.env.local` file in the project root:
+
+```
+VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/your-form-id
+```
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Preview production build locally |
+| `npm test` | Run unit tests (Vitest) |
+| `npm run lint` | Run ESLint |
+
+## Deployment
+
+The app deploys automatically to GitHub Pages on every push to `main` via `.github/workflows/deploy.yml`.
+
+Add `VITE_FORMSPREE_ENDPOINT` as a repository secret in **Settings → Secrets and variables → Actions** to enable form submissions in production.
+
+## Project Structure
+
+```
+src/
+  components/     # React UI components
+  data/           # Pricing tables, item options, complexity options
+  utils/          # calculateEstimate, formatCurrency, getQuantityTier, getStitchRange
+    __tests__/    # Vitest unit tests
+  styles/         # global.css
+```
