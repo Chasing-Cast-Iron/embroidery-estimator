@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-ssr
+*.local
+.env.local
+.env
+.DS_Store
+# CocoIndex Code (ccc)
+/.cocoindex_code/
+# Playwright CLI local artifacts
+/.playwright-cli/
