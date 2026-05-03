@@ -421,6 +421,22 @@ textarea.form-control {
   margin-top: 0.3rem;
 }
 
+.upload-fallback-note {
+  color: var(--color-text-muted);
+  background: var(--color-surface-alt);
+  border-left: 3px solid var(--color-accent);
+  padding: 0.45rem 0.75rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin-top: 0.5rem;
+}
+
+.field-optional {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-text-light);
+  margin-left: 0.25rem;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

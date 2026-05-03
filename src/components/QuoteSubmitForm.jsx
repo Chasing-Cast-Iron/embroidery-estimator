@@ -163,14 +163,14 @@ export default function QuoteSubmitForm({ estimate }) {
         </div>
 
         <div className="form-group">
-          <label htmlFor="q-file">Upload Design / Logo</label>
+          <label htmlFor="q-file">Upload Design / Logo <span className="field-optional">(optional)</span></label>
           <div className="file-input-wrapper">
             <input
               id="q-file"
               type="file"
               accept=".png,.jpg,.jpeg,.pdf,.svg,.ai,.eps,.tif,.tiff"
               onChange={(e) => setFile(e.target.files[0] || null)}
-              aria-describedby="file-hint"
+              aria-describedby="file-hint file-fallback"
             />
             <div className="file-input-label">
               {file
@@ -180,6 +180,9 @@ export default function QuoteSubmitForm({ estimate }) {
             </div>
           </div>
           <p className="form-hint" id="file-hint">Accepted: PNG, JPG, PDF, SVG, AI, EPS. Max 10MB.</p>
+          <p className="form-hint upload-fallback-note" id="file-fallback">
+            <strong>Upload not working?</strong> No problem — submit the form without a file and we'll reply with instructions for sending your artwork separately.
+          </p>
         </div>
 
         <div className="form-group">

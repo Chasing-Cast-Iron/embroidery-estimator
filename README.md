@@ -28,6 +28,38 @@ Create a `.env.local` file in the project root:
 VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/your-form-id
 ```
 
+## Form Submission & File Upload Options
+
+### Formspree (current default)
+
+The quote form submits to a Formspree endpoint when `VITE_FORMSPREE_ENDPOINT` is set.
+
+> **⚠️ Important:** Native file uploads via Formspree require a **paid plan**. On the free tier, text fields are delivered fine but attached files will be dropped silently.
+>
+> Because of this, **file upload is not required** in the form. If a customer cannot upload their artwork, a clear note in the form tells them to submit without a file and we will reply with instructions for sending it separately.
+
+### Tally (recommended free/low-cost upload option)
+
+[Tally](https://tally.so) is the recommended option if you want free file upload support. Tally's free plan supports file uploads natively.
+
+**To add Tally upload support later:**
+
+1. Create a Tally form that includes a file upload field and any fields you want (name, email, order details, etc.).
+2. You can embed the Tally form in place of (or alongside) the custom quote form, or link to it as a separate "Upload your artwork" step shown after the quote form is submitted.
+3. Tally forms can email responses (including file links) to any address — set that to your business email.
+
+The current form fallback message already guides customers to submit without artwork first. A Tally upload link can be added to the success screen or the follow-up email when needed.
+
+### Future backend option (Cloudflare Pages + Resend + R2)
+
+For a fully custom solution later:
+
+```
+Cloudflare Pages Functions  — serverless form handler
+Resend                      — transactional email
+Cloudflare R2               — file storage
+```
+
 ## Scripts
 
 | Command | Description |
