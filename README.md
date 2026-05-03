@@ -78,6 +78,8 @@ Cloudflare R2               — file storage
 
 The app deploys automatically to GitHub Pages on every push to `main` via `.github/workflows/deploy.yml`.
 
+In **Settings → Pages**, set **Source** to **GitHub Actions**. Do not use "Deploy from a branch" for this Vite app, because that serves the raw source files instead of the production build.
+
 Add `VITE_FORMSPREE_ENDPOINT` as a repository secret in **Settings → Secrets and variables → Actions** to enable form submissions in production.
 
 Add `VITE_TALLY_UPLOAD_URL` as a repository variable in **Settings → Secrets and variables → Actions → Variables** if you want to show a Tally artwork upload link.
