@@ -736,8 +736,214 @@ textarea.form-control {
 }
 
 .quote-form-wrap {
-  max-width: 720px;
+  max-width: 900px;
   margin: 0 auto;
+}
+
+.quote-handoff {
+  overflow: hidden;
+}
+
+.quote-prep {
+  margin-bottom: 1.25rem;
+}
+
+.quote-no-estimate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem;
+  border: 1px dashed var(--color-border);
+  background: var(--color-surface-alt);
+}
+
+.quote-no-estimate h4 {
+  font-size: 0.86rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+.quote-no-estimate p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.quote-no-estimate .btn {
+  flex: 0 0 auto;
+}
+
+.quote-recap {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  margin-bottom: 1rem;
+}
+
+.quote-recap__item {
+  display: grid;
+  gap: 0.25rem;
+  min-height: 72px;
+  padding: 0.85rem 0.9rem;
+  border-right: 1px solid var(--color-border);
+}
+
+.quote-recap__item:last-child {
+  border-right: 0;
+}
+
+.quote-recap__item span {
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.quote-recap__item strong {
+  color: var(--color-text);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.quote-estimate-summary {
+  margin-bottom: 1.2rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+
+.font-selector-wrap {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.font-selector-wrap h4 {
+  font-size: 0.86rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.font-selected-summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.3rem 0.8rem;
+  align-items: center;
+  min-height: 52px;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 0.8rem;
+}
+
+.font-selected-summary__text {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.font-selected-summary strong {
+  color: var(--color-text);
+}
+
+.font-selected-summary span {
+  line-height: 1.45;
+}
+
+.font-selected-summary__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.link-button {
+  border: 0;
+  background: transparent;
+  color: var(--color-primary-dark);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.font-picker-panel {
+  display: grid;
+  gap: 0.8rem;
+  padding-top: 0.35rem;
+}
+
+.font-list {
+  display: grid;
+  gap: 0.55rem;
+  max-height: 340px;
+  overflow: auto;
+  padding-right: 0.2rem;
+}
+
+.font-option {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.7rem;
+  align-items: center;
+  min-height: 58px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.font-option:hover,
+.font-option.is-selected {
+  border-color: var(--color-primary-dark);
+  background: var(--color-primary-light);
+}
+
+.font-option input {
+  inline-size: 1rem;
+  block-size: 1rem;
+  accent-color: var(--color-primary-dark);
+}
+
+.font-option__main {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.font-option__name {
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.font-option__meta,
+.font-option__details {
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.font-option__details {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.font-list-empty {
+  padding: 1rem;
+  border: 1px dashed var(--color-border);
+  margin-top: 0;
 }
 
 .success-message {
@@ -902,6 +1108,33 @@ textarea.form-control {
 
   .form-row { grid-template-columns: 1fr; }
 
+  .quote-no-estimate {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .quote-recap {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quote-recap__item:nth-child(2) {
+    border-right: 0;
+  }
+
+  .quote-recap__item:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .font-option {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .font-option__details {
+    grid-column: 2;
+    text-align: left;
+    white-space: normal;
+  }
+
   .steps { grid-template-columns: 1fr 1fr; }
 }
 
@@ -937,6 +1170,27 @@ textarea.form-control {
   .form-card,
   .estimate-summary {
     padding: 1.35rem;
+  }
+
+  .font-selected-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .font-selected-summary__actions {
+    justify-content: flex-start;
+  }
+
+  .quote-recap {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-recap__item,
+  .quote-recap__item:nth-child(2) {
+    border-right: 0;
+  }
+
+  .quote-recap__item:nth-child(-n + 3) {
+    border-bottom: 1px solid var(--color-border);
   }
 
   .estimate-total {

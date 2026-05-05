@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import QuoteSubmitForm from '../QuoteSubmitForm';
 
 const estimate = {
@@ -29,44 +29,125 @@ const estimate = {
 
 afterEach(() => cleanup());
 
+function getForm(container) {
+  return container.querySelector('form[name="quote-request"]');
+}
+
 describe('QuoteSubmitForm', () => {
-  it('syncs estimator values into the quote form when an estimate is calculated', () => {
-    const { rerender } = render(<QuoteSubmitForm estimate={null} />);
+  it('renders a native Netlify form without an embedded iframe', () => {
+    const { container } = render(<QuoteSubmitForm estimate={null} />);
+    const form = getForm(container);
 
-    expect(screen.getByLabelText(/Item Type/i).value).toBe('');
-
-    rerender(<QuoteSubmitForm estimate={estimate} />);
-
-    expect(screen.getByLabelText(/Item Type/i).value).toBe('hat-cap');
-    expect(screen.getByLabelText(/Quantity/i).value).toBe('12');
-    expect(screen.getByLabelText(/Design Complexity/i).value).toBe('unsure');
-    expect(screen.getByLabelText(/Digitizing Needed/i).value).toBe('yes');
+    expect(form).toBeTruthy();
+    expect(form.getAttribute('data-netlify')).toBe('true');
+    expect(form.getAttribute('netlify-honeypot')).toBe('bot-field');
+    expect(form.getAttribute('enctype')).toBe('multipart/form-data');
+    expect(form.querySelector('input[name="form-name"]').value).toBe('quote-request');
+    expect(screen.queryByTitle('Custom embroidery quote request')).toBeNull();
   });
 
-  it('keeps browser validation enabled for required customer fields', () => {
+  it('shows quote fields without requiring an estimator first', () => {
+    render(<QuoteSubmitForm estimate={null} />);
+
+    expect(screen.getByText(/Submit Without an Estimate/i)).toBeTruthy();
+    expect(screen.getByRole('link', { name: /Use Estimator/i }).getAttribute('href')).toBe('#estimate');
+    expect(screen.getByLabelText(/Full Name/i)).toBeTruthy();
+    expect(screen.getByLabelText(/Email/i)).toBeTruthy();
+    expect(screen.getByLabelText(/Item Type/i)).toBeTruthy();
+    expect(screen.getByLabelText(/^Quantity/i)).toBeTruthy();
+    expect(screen.getByLabelText(/Design Type/i)).toBeTruthy();
+    expect(screen.getByLabelText(/Digitizing Needed/i)).toBeTruthy();
+    expect(screen.getByLabelText(/Text to Embroider/i)).toBeTruthy();
+    expect(screen.getByLabelText(/Upload Logo/i)).toBeTruthy();
+  });
+
+  it('prefills order fields and includes hidden estimate details when an estimate exists', async () => {
     const { container } = render(<QuoteSubmitForm estimate={estimate} />);
-    const form = container.querySelector('form');
 
-    expect(form.noValidate).toBe(false);
-    expect(form.checkValidity()).toBe(false);
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Item Type/i).value).toBe('hat-cap');
+    });
 
-    fireEvent.change(screen.getByLabelText(/Full Name/i), { target: { value: 'Jane Smith' } });
-    fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'jane@example.com' } });
+    expect(screen.getByLabelText(/^Quantity/i).value).toBe('12');
+    expect(screen.getByLabelText(/Digitizing Needed/i).value).toBe('yes');
+    expect(screen.getByLabelText(/Quote request details/i).textContent).toContain('Hat / Cap');
 
-    expect(form.checkValidity()).toBe(true);
+    expect(container.querySelector('input[name="itemTypeLabel"]').value).toBe('Hat / Cap');
+    expect(container.querySelector('input[name="designComplexity"]').value).toBe('unsure');
+    expect(container.querySelector('input[name="designComplexityLabel"]').value).toContain('Not sure');
+    expect(container.querySelector('input[name="estimateSummary"]').value).toContain('Estimated range:');
+    expect(container.querySelector('input[name="estimateDetails"]').value).toContain('Digitizing fee:');
+  });
+
+  it('includes selected Hatch font details as hidden fields', () => {
+    const { container } = render(<QuoteSubmitForm estimate={null} />);
+
+    fireEvent.click(screen.getByRole('button', { name: /Choose Font/i }));
+    fireEvent.change(screen.getByLabelText(/Search Hatch Fonts/i), {
+      target: { value: 'Script3' },
+    });
+    fireEvent.click(screen.getByRole('radio', { name: /Script3/ }));
+
+    expect(container.querySelector('input[name="hatchFontName"]').value).toBe('Script3');
+    expect(container.querySelector('input[name="hatchFontCategory"]').value).toBe('Script fonts');
+    expect(container.querySelector('input[name="hatchFontSizeRange"]').value).toBe('0.8-2.1 in / 20-55 mm');
+    expect(container.querySelector('input[name="hatchFontJoinMethod"]').value).toBe('CJ');
+  });
+
+  it('requires artwork only for logo/image requests', () => {
+    render(<QuoteSubmitForm estimate={null} />);
+    const designType = screen.getByLabelText(/Design Type/i);
+    const fileInput = screen.getByLabelText(/Upload Logo/i);
+
+    expect(fileInput.required).toBe(false);
+
+    fireEvent.change(designType, {
+      target: { name: 'designType', value: 'logo-image' },
+    });
+
+    expect(fileInput.required).toBe(true);
+  });
+
+  it('requires text only for text-only requests', () => {
+    render(<QuoteSubmitForm estimate={null} />);
+    const designType = screen.getByLabelText(/Design Type/i);
+    const textInput = screen.getByLabelText(/Text to Embroider/i);
+
+    expect(textInput.required).toBe(false);
+
+    fireEvent.change(designType, {
+      target: { name: 'designType', value: 'text-only' },
+    });
+
+    expect(textInput.required).toBe(true);
   });
 
   it('rejects artwork files larger than the stated upload limit', () => {
-    render(<QuoteSubmitForm estimate={estimate} />);
+    render(<QuoteSubmitForm estimate={null} />);
 
     const largeFile = new File([new Uint8Array(10 * 1024 * 1024 + 1)], 'large-logo.png', {
       type: 'image/png',
     });
 
-    fireEvent.change(screen.getByLabelText(/Upload Design/i), {
+    fireEvent.change(screen.getByLabelText(/Upload Logo/i), {
       target: { files: [largeFile] },
     });
 
     expect(screen.getByRole('alert').textContent).toContain('10MB');
+    expect(screen.getByRole('button', { name: /Submit Quote Request/i }).disabled).toBe(true);
+  });
+
+  it('rejects unsupported artwork file types', () => {
+    render(<QuoteSubmitForm estimate={null} />);
+
+    const unsupportedFile = new File(['hello'], 'logo.txt', {
+      type: 'text/plain',
+    });
+
+    fireEvent.change(screen.getByLabelText(/Upload Logo/i), {
+      target: { files: [unsupportedFile] },
+    });
+
+    expect(screen.getByRole('alert').textContent).toContain('PNG, JPG, PDF, SVG, AI, EPS, TIF, or TIFF');
   });
 });
