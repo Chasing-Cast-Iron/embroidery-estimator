@@ -968,6 +968,27 @@ textarea.form-control {
   margin-bottom: 1rem;
 }
 
+.customer-provided-notice {
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error);
+  border-left: 4px solid var(--color-error);
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+  color: var(--color-error);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.customer-provided-notice strong {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.customer-provided-notice p {
+  margin: 0;
+  color: var(--color-text);
+}
+
 /* -- FAQ -- */
 .faq {
   background: var(--color-bg);

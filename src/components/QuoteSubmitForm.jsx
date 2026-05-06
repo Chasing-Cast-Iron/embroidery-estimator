@@ -7,6 +7,14 @@ import HatchFontSelector from './HatchFontSelector';
 import PricingDisclaimer from './PricingDisclaimer';
 
 const NETLIFY_FORM_NAME = 'quote-request';
+const CUSTOMER_PROVIDED_VALUE = 'customer-provided';
+const MIN_LEAD_DAYS = 14;
+
+function getMinDeadlineDate() {
+  const d = new Date();
+  d.setDate(d.getDate() + MIN_LEAD_DAYS);
+  return d.toISOString().slice(0, 10);
+}
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
 const MAX_UPLOAD_MB = 10;
 const ACCEPTED_FILE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.pdf', '.svg', '.ai', '.eps', '.tif', '.tiff'];
@@ -48,7 +56,7 @@ export default function QuoteSubmitForm({ estimate }) {
     name: '',
     email: '',
     phone: '',
-    deadline: '',
+    deadline: getMinDeadlineDate(),
     itemType: '',
     quantity: '',
     designType: '',
@@ -75,6 +83,7 @@ export default function QuoteSubmitForm({ estimate }) {
   const formDigitizingNeededLabel = getOptionLabel(digitizingOptions, effectiveFormData.digitizingNeeded);
   const isArtworkRequired = formData.designType === 'logo-image' || formData.designType === 'logo-with-text';
   const isTextRequired = formData.designType === 'text-only' || formData.designType === 'logo-with-text';
+  const isCustomerProvided = effectiveFormData.itemType === CUSTOMER_PROVIDED_VALUE;
 
   const buildEstimateSummary = () => {
     if (!hasEstimate) return '';
@@ -271,6 +280,18 @@ export default function QuoteSubmitForm({ estimate }) {
         <input type="hidden" name="hatchFontCategory" value={selectedFont?.category || ''} />
         <input type="hidden" name="hatchFontSizeRange" value={getHatchFontSizeRange(selectedFont)} />
         <input type="hidden" name="hatchFontJoinMethod" value={selectedFont?.joinMethod || ''} />
+        <input type="hidden" name="customerProvidedItem" value={isCustomerProvided ? 'true' : 'false'} />
+
+        {isCustomerProvided && (
+          <div className="customer-provided-notice" role="alert">
+            <strong><span aria-hidden="true">⚠ </span>Customer-Provided Item — Higher Liability Order</strong>
+            <p>
+              You've selected a customer-provided item. Before we proceed, a team member will contact
+              you to confirm the item details and discuss liability. Please do not ship or drop off
+              your item until we've reached out.
+            </p>
+          </div>
+        )}
 
         <div className="form-row">
           <div className="form-group">
@@ -294,7 +315,9 @@ export default function QuoteSubmitForm({ estimate }) {
           <div className="form-group">
             <label htmlFor="q-deadline">Deadline / Needed By</label>
             <input id="q-deadline" name="deadline" type="date" className="form-control"
-              value={formData.deadline} onChange={handleChange} />
+              value={formData.deadline} onChange={handleChange}
+              min={getMinDeadlineDate()} />
+            <p className="form-hint">Orders require at least 2 weeks lead time.</p>
           </div>
         </div>
 

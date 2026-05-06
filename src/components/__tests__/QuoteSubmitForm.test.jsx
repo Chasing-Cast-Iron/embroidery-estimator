@@ -150,4 +150,73 @@ describe('QuoteSubmitForm', () => {
 
     expect(screen.getByRole('alert').textContent).toContain('PNG, JPG, PDF, SVG, AI, EPS, TIF, or TIFF');
   });
+
+  it('defaults deadline to at least 2 weeks from today', () => {
+    render(<QuoteSubmitForm estimate={null} />);
+    const deadlineInput = screen.getByLabelText(/Deadline/i);
+
+    const today = new Date();
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() + 14);
+    const minDateStr = minDate.toISOString().slice(0, 10);
+
+    expect(deadlineInput.value).toBe(minDateStr);
+    expect(deadlineInput.min).toBe(minDateStr);
+  });
+
+  it('prevents selecting a deadline sooner than 2 weeks from today', () => {
+    render(<QuoteSubmitForm estimate={null} />);
+    const deadlineInput = screen.getByLabelText(/Deadline/i);
+
+    const today = new Date();
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() + 14);
+    const minDateStr = minDate.toISOString().slice(0, 10);
+
+    expect(deadlineInput.min).toBe(minDateStr);
+  });
+
+  it('shows a liability warning when customer-provided item is selected', () => {
+    render(<QuoteSubmitForm estimate={null} />);
+    const itemTypeSelect = screen.getByLabelText(/Item Type/i);
+
+    expect(screen.queryByRole('alert', { name: /Higher Liability/i })).toBeNull();
+    expect(screen.queryByText(/team member will contact/i)).toBeNull();
+
+    fireEvent.change(itemTypeSelect, {
+      target: { name: 'itemType', value: 'customer-provided' },
+    });
+
+    expect(screen.getByText(/Higher Liability Order/i)).toBeTruthy();
+    expect(screen.getByText(/team member will contact/i)).toBeTruthy();
+  });
+
+  it('sets customerProvidedItem hidden field to true when customer-provided is selected', () => {
+    const { container } = render(<QuoteSubmitForm estimate={null} />);
+    const itemTypeSelect = screen.getByLabelText(/Item Type/i);
+
+    const hiddenField = container.querySelector('input[name="customerProvidedItem"]');
+    expect(hiddenField.value).toBe('false');
+
+    fireEvent.change(itemTypeSelect, {
+      target: { name: 'itemType', value: 'customer-provided' },
+    });
+
+    expect(hiddenField.value).toBe('true');
+  });
+
+  it('hides liability warning when non-customer-provided item is selected', () => {
+    render(<QuoteSubmitForm estimate={null} />);
+    const itemTypeSelect = screen.getByLabelText(/Item Type/i);
+
+    fireEvent.change(itemTypeSelect, {
+      target: { name: 'itemType', value: 'customer-provided' },
+    });
+    expect(screen.getByText(/Higher Liability Order/i)).toBeTruthy();
+
+    fireEvent.change(itemTypeSelect, {
+      target: { name: 'itemType', value: 'shirt' },
+    });
+    expect(screen.queryByText(/Higher Liability Order/i)).toBeNull();
+  });
 });
