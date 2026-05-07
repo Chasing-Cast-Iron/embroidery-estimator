@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import QuoteSubmitForm from '../QuoteSubmitForm';
 
@@ -43,14 +43,17 @@ describe('QuoteSubmitForm', () => {
     expect(form.getAttribute('netlify-honeypot')).toBe('bot-field');
     expect(form.getAttribute('enctype')).toBe('multipart/form-data');
     expect(form.querySelector('input[name="form-name"]').value).toBe('quote-request');
+    expect(form.querySelector('input[name="customerProvidedItem"]')).toBeNull();
     expect(screen.queryByTitle('Custom embroidery quote request')).toBeNull();
   });
 
   it('shows quote fields without requiring an estimator first', () => {
-    render(<QuoteSubmitForm estimate={null} />);
+    const onUseEstimator = vi.fn();
+    render(<QuoteSubmitForm estimate={null} onUseEstimator={onUseEstimator} />);
 
     expect(screen.getByText(/Submit Without an Estimate/i)).toBeTruthy();
-    expect(screen.getByRole('link', { name: /Use Estimator/i }).getAttribute('href')).toBe('#estimate');
+    fireEvent.click(screen.getByRole('button', { name: /Get an Estimate First/i }));
+    expect(onUseEstimator).toHaveBeenCalledTimes(1);
     expect(screen.getByLabelText(/Full Name/i)).toBeTruthy();
     expect(screen.getByLabelText(/Email/i)).toBeTruthy();
     expect(screen.getByLabelText(/Item Type/i)).toBeTruthy();
@@ -59,6 +62,7 @@ describe('QuoteSubmitForm', () => {
     expect(screen.getByLabelText(/Digitizing Needed/i)).toBeTruthy();
     expect(screen.getByLabelText(/Text to Embroider/i)).toBeTruthy();
     expect(screen.getByLabelText(/Upload Logo/i)).toBeTruthy();
+    expect(screen.queryByRole('option', { name: /Customer-Provided Item/i })).toBeNull();
   });
 
   it('prefills order fields and includes hidden estimate details when an estimate exists', async () => {
@@ -71,11 +75,12 @@ describe('QuoteSubmitForm', () => {
     expect(screen.getByLabelText(/^Quantity/i).value).toBe('12');
     expect(screen.getByLabelText(/Digitizing Needed/i).value).toBe('yes');
     expect(screen.getByLabelText(/Quote request details/i).textContent).toContain('Hat / Cap');
+    expect(screen.getByText(/Your estimate details are included with this request/i)).toBeTruthy();
 
     expect(container.querySelector('input[name="itemTypeLabel"]').value).toBe('Hat / Cap');
     expect(container.querySelector('input[name="designComplexity"]').value).toBe('unsure');
     expect(container.querySelector('input[name="designComplexityLabel"]').value).toContain('Not sure');
-    expect(container.querySelector('input[name="estimateSummary"]').value).toContain('Estimated range:');
+    expect(container.querySelector('input[name="estimateSummary"]').value).toContain('Estimated embroidery range:');
     expect(container.querySelector('input[name="estimateDetails"]').value).toContain('Digitizing fee:');
   });
 
@@ -150,4 +155,30 @@ describe('QuoteSubmitForm', () => {
 
     expect(screen.getByRole('alert').textContent).toContain('PNG, JPG, PDF, SVG, AI, EPS, TIF, or TIFF');
   });
+
+  it('defaults deadline to at least 2 weeks from today', () => {
+    render(<QuoteSubmitForm estimate={null} />);
+    const deadlineInput = screen.getByLabelText(/Deadline/i);
+
+    const today = new Date();
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() + 14);
+    const minDateStr = minDate.toISOString().slice(0, 10);
+
+    expect(deadlineInput.value).toBe(minDateStr);
+    expect(deadlineInput.min).toBe(minDateStr);
+  });
+
+  it('prevents selecting a deadline sooner than 2 weeks from today', () => {
+    render(<QuoteSubmitForm estimate={null} />);
+    const deadlineInput = screen.getByLabelText(/Deadline/i);
+
+    const today = new Date();
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() + 14);
+    const minDateStr = minDate.toISOString().slice(0, 10);
+
+    expect(deadlineInput.min).toBe(minDateStr);
+  });
+
 });

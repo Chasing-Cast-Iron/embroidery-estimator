@@ -3,7 +3,19 @@ import { itemOptions } from '../data/itemOptions';
 import { designComplexityOptions } from '../data/designComplexity';
 import PricingDisclaimer from './PricingDisclaimer';
 
-export default function EstimateSummary({ estimate, formData }) {
+const itemCostNote = 'Does not include the cost of hats, apparel, or other items being embroidered. Item costs are added separately.';
+
+function QuoteRequestCta({ onContinueToQuote }) {
+  return (
+    <div className="estimate-next-step">
+      <button type="button" className="btn btn-primary btn-lg" onClick={onContinueToQuote}>
+        Continue to Quote Request
+      </button>
+    </div>
+  );
+}
+
+export default function EstimateSummary({ estimate, formData, onContinueToQuote }) {
   if (!estimate) {
     return (
       <div className="estimate-summary" aria-live="polite" aria-label="Estimate results">
@@ -31,6 +43,7 @@ export default function EstimateSummary({ estimate, formData }) {
           </p>
         </div>
         <PricingDisclaimer />
+        <QuoteRequestCta onContinueToQuote={onContinueToQuote} />
       </div>
     );
   }
@@ -89,15 +102,17 @@ export default function EstimateSummary({ estimate, formData }) {
       </div>
 
       <div className="estimate-total" role="status">
-        <span className="estimate-total__label">Estimated Total</span>
+        <span className="estimate-total__label">Estimated Embroidery Total</span>
         <span className="estimate-total__value">
           {result.estimatedLow === result.estimatedHigh
             ? formatCurrency(result.estimatedLow)
             : `${formatCurrency(result.estimatedLow)} – ${formatCurrency(result.estimatedHigh)}`}
         </span>
       </div>
+      <p className="estimate-item-cost-note">{itemCostNote}</p>
 
       <PricingDisclaimer />
+      <QuoteRequestCta onContinueToQuote={onContinueToQuote} />
     </div>
   );
 }

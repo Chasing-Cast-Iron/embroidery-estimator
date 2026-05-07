@@ -7,6 +7,13 @@ import HatchFontSelector from './HatchFontSelector';
 import PricingDisclaimer from './PricingDisclaimer';
 
 const NETLIFY_FORM_NAME = 'quote-request';
+const MIN_LEAD_DAYS = 14;
+
+function getMinDeadlineDate() {
+  const d = new Date();
+  d.setDate(d.getDate() + MIN_LEAD_DAYS);
+  return d.toISOString().slice(0, 10);
+}
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
 const MAX_UPLOAD_MB = 10;
 const ACCEPTED_FILE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.pdf', '.svg', '.ai', '.eps', '.tif', '.tiff'];
@@ -40,7 +47,7 @@ function isAcceptedFile(file) {
   return ACCEPTED_FILE_EXTENSIONS.some(extension => file.name.toLowerCase().endsWith(extension));
 }
 
-export default function QuoteSubmitForm({ estimate }) {
+export default function QuoteSubmitForm({ estimate, onUseEstimator }) {
   const estimateFormData = estimate?.formData || {};
   const hasEstimate = Boolean(estimate && estimateFormData.itemType);
   const currentResult = hasEstimate ? estimate?.result : null;
@@ -48,7 +55,7 @@ export default function QuoteSubmitForm({ estimate }) {
     name: '',
     email: '',
     phone: '',
-    deadline: '',
+    deadline: getMinDeadlineDate(),
     itemType: '',
     quantity: '',
     designType: '',
@@ -81,9 +88,9 @@ export default function QuoteSubmitForm({ estimate }) {
     if (!currentResult || currentResult.incomplete) return 'No estimate calculated';
     if (currentResult.manualQuoteRequired) return 'Manual quote required';
     if (currentResult.isRange) {
-      return `Estimated range: ${formatRange(currentResult.estimatedLow, currentResult.estimatedHigh)}`;
+      return `Estimated embroidery range: ${formatRange(currentResult.estimatedLow, currentResult.estimatedHigh)}`;
     }
-    return `Estimated total: ${formatRange(currentResult.estimatedLow, currentResult.estimatedHigh)}`;
+    return `Estimated embroidery total: ${formatRange(currentResult.estimatedLow, currentResult.estimatedHigh)}`;
   };
 
   const buildEstimateDetails = () => {
@@ -190,7 +197,7 @@ export default function QuoteSubmitForm({ estimate }) {
 
   return (
     <div className="form-card quote-handoff">
-      <h3>Finish Your Request</h3>
+      <h3>Finish Your Quote Request</h3>
 
       <div className="quote-prep">
         {!hasEstimate ? (
@@ -201,10 +208,13 @@ export default function QuoteSubmitForm({ estimate }) {
                 Use the form below to send your request now, or use the estimator first if you want a price range.
               </p>
             </div>
-            <a className="btn btn-secondary btn-sm" href="#estimate">Use Estimator</a>
+            <button type="button" className="btn btn-secondary btn-sm" onClick={onUseEstimator}>
+              Get an Estimate First
+            </button>
           </div>
         ) : (
           <>
+            <p className="quote-included-message">Your estimate details are included with this request.</p>
             <div className="quote-recap" aria-label="Quote request details">
               <div className="quote-recap__item">
                 <span>Item</span>
@@ -294,7 +304,9 @@ export default function QuoteSubmitForm({ estimate }) {
           <div className="form-group">
             <label htmlFor="q-deadline">Deadline / Needed By</label>
             <input id="q-deadline" name="deadline" type="date" className="form-control"
-              value={formData.deadline} onChange={handleChange} />
+              value={formData.deadline} onChange={handleChange}
+              min={getMinDeadlineDate()} />
+            <p className="form-hint">Orders require at least 2 weeks lead time.</p>
           </div>
         </div>
 

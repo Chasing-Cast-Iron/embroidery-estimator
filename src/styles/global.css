@@ -432,9 +432,78 @@ section { padding: var(--section-pad); }
   line-height: 1.55;
 }
 
-/* -- Estimate Section -- */
-.estimate-section {
+/* -- Request Section -- */
+.request-section {
   background: var(--color-bg);
+}
+
+.request-paths {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto 1.5rem;
+}
+
+.request-path {
+  display: grid;
+  gap: 0.45rem;
+  min-height: 134px;
+  padding: 1.35rem;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  transition: border-color 0.2s, background 0.2s, transform 0.1s;
+}
+
+.request-path:hover,
+.request-path:focus-visible,
+.request-path.is-active {
+  border-color: var(--color-primary-dark);
+  background: var(--color-primary-light);
+}
+
+.request-path:active {
+  transform: translateY(1px);
+}
+
+.request-path__label {
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 1.18rem;
+  font-weight: 600;
+}
+
+.request-path__text {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.request-placeholder {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.1rem 1.25rem;
+  border: 1px dashed var(--color-border);
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.request-workflow {
+  margin-top: 1.5rem;
+}
+
+.request-workflow:focus {
+  outline: none;
+}
+
+.request-workflow:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
 }
 
 .estimate-layout {
@@ -712,6 +781,21 @@ textarea.form-control {
   font-weight: 700;
 }
 
+.estimate-item-cost-note {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: -0.25rem 0 1rem;
+}
+
+.estimate-next-step {
+  margin-top: 1.25rem;
+}
+
+.estimate-next-step .btn {
+  width: 100%;
+}
+
 /* -- Disclaimer -- */
 .disclaimer {
   background: var(--color-warning-bg);
@@ -726,13 +810,6 @@ textarea.form-control {
 
 .disclaimer strong {
   color: var(--color-text);
-}
-
-/* -- Quote Form Section -- */
-.quote-section {
-  background: var(--color-surface-alt);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
 }
 
 .quote-form-wrap {
@@ -774,6 +851,16 @@ textarea.form-control {
 
 .quote-no-estimate .btn {
   flex: 0 0 auto;
+}
+
+.quote-included-message {
+  margin-bottom: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-text);
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 .quote-recap {
@@ -1107,6 +1194,10 @@ textarea.form-control {
   .header__hamburger { display: flex; }
 
   .form-row { grid-template-columns: 1fr; }
+
+  .request-paths {
+    grid-template-columns: 1fr;
+  }
 
   .quote-no-estimate {
     align-items: flex-start;

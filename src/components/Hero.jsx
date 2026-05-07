@@ -21,15 +21,15 @@ export default function Hero() {
           <div className="brand-rule" aria-hidden="true" />
           <p className="hero__eyebrow">Embroidery by Chasing Cast Iron</p>
           <h1 className="hero__headline" id="hero-headline">
-            Start an Embroidery Estimate
+            Start an Embroidery Request
           </h1>
           <p className="hero__subheading">
-            Hats, apparel, reunion gear, business apparel, and more. Build a quick estimate,
-            then we review the artwork and confirm the final quote.
+            Hats, apparel, reunion gear, business apparel, and more. Get an estimate first
+            or send a quote request now.
           </p>
           <div className="hero__actions">
-            <button className="btn btn-primary btn-lg" onClick={() => scrollTo('estimate')}>
-              Start Estimate
+            <button className="btn btn-primary btn-lg" onClick={() => scrollTo('request')}>
+              Start Request
             </button>
           </div>
         </div>

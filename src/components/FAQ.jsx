@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: 'What items can be embroidered?',
-    a: "We embroider hats, caps, stocking caps, shirts, t-shirts, jackets, sweatshirts, bags, and more. You can also bring your own items — select \"Customer-Provided Item\" in the estimator. Not all materials are suitable for embroidery; we'll let you know if there's a concern."
+    a: "We embroider hats, caps, stocking caps, shirts, t-shirts, jackets, sweatshirts, bags, and similar apparel or accessories. If you're not sure which item type to choose, select \"Other\" and tell us about it in the notes."
   },
   {
     q: "What's the minimum order?",
