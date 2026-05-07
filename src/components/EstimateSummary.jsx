@@ -5,17 +5,17 @@ import PricingDisclaimer from './PricingDisclaimer';
 
 const itemCostNote = 'Does not include the cost of hats, apparel, or other items being embroidered. Item costs are added separately.';
 
-function QuoteRequestCta() {
+function QuoteRequestCta({ onContinueToQuote }) {
   return (
     <div className="estimate-next-step">
-      <a className="btn btn-primary btn-lg" href="#quote">
+      <button type="button" className="btn btn-primary btn-lg" onClick={onContinueToQuote}>
         Continue to Quote Request
-      </a>
+      </button>
     </div>
   );
 }
 
-export default function EstimateSummary({ estimate, formData }) {
+export default function EstimateSummary({ estimate, formData, onContinueToQuote }) {
   if (!estimate) {
     return (
       <div className="estimate-summary" aria-live="polite" aria-label="Estimate results">
@@ -43,7 +43,7 @@ export default function EstimateSummary({ estimate, formData }) {
           </p>
         </div>
         <PricingDisclaimer />
-        <QuoteRequestCta />
+        <QuoteRequestCta onContinueToQuote={onContinueToQuote} />
       </div>
     );
   }
@@ -112,7 +112,7 @@ export default function EstimateSummary({ estimate, formData }) {
       <p className="estimate-item-cost-note">{itemCostNote}</p>
 
       <PricingDisclaimer />
-      <QuoteRequestCta />
+      <QuoteRequestCta onContinueToQuote={onContinueToQuote} />
     </div>
   );
 }

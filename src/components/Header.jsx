@@ -18,11 +18,11 @@ export default function Header() {
         <nav className="header__nav" aria-label="Main navigation">
           <a href="https://chasingcastiron.com/">Home</a>
           <a href="#how-it-works" onClick={(e) => { e.preventDefault(); scrollTo('how-it-works'); }}>How It Works</a>
-          <a href="#estimate" onClick={(e) => { e.preventDefault(); scrollTo('estimate'); }}>Get Estimate</a>
+          <a href="#request" onClick={(e) => { e.preventDefault(); scrollTo('request'); }}>Start Request</a>
           <a href="#faq" onClick={(e) => { e.preventDefault(); scrollTo('faq'); }}>FAQ</a>
           <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}>Contact</a>
-          <button className="btn btn-accent btn-sm" onClick={() => scrollTo('estimate')}>
-            Get Estimate
+          <button className="btn btn-accent btn-sm" onClick={() => scrollTo('request')}>
+            Start Request
           </button>
         </nav>
         <button
@@ -40,7 +40,7 @@ export default function Header() {
         <nav className="header__mobile-nav" aria-label="Mobile navigation">
           <a href="https://chasingcastiron.com/">Home</a>
           <a href="#how-it-works" onClick={(e) => { e.preventDefault(); scrollTo('how-it-works'); }}>How It Works</a>
-          <a href="#estimate" onClick={(e) => { e.preventDefault(); scrollTo('estimate'); }}>Get Estimate</a>
+          <a href="#request" onClick={(e) => { e.preventDefault(); scrollTo('request'); }}>Start Request</a>
           <a href="#faq" onClick={(e) => { e.preventDefault(); scrollTo('faq'); }}>FAQ</a>
           <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}>Contact</a>
         </nav>

@@ -5,6 +5,7 @@ A React + Vite web app that lets customers get an instant embroidery price estim
 ## Features
 
 - **Instant Estimate Calculator** — quantity-tier pricing across 4 stitch-count tiers
+- **Guided Request Flow** — lets customers choose estimate-first or quote-now in one workspace
 - **Embroidery-Only Pricing Note** — clarifies that blank item/apparel costs are added separately
 - **Netlify Quote Submission** — native form processing with artwork upload and email notifications
 - **Hatch Font Selector** — searchable Hatch Embroidery 3 Digitizer font list for text-only embroidery requests

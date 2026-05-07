@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import QuoteSubmitForm from '../QuoteSubmitForm';
 
@@ -48,10 +48,12 @@ describe('QuoteSubmitForm', () => {
   });
 
   it('shows quote fields without requiring an estimator first', () => {
-    render(<QuoteSubmitForm estimate={null} />);
+    const onUseEstimator = vi.fn();
+    render(<QuoteSubmitForm estimate={null} onUseEstimator={onUseEstimator} />);
 
     expect(screen.getByText(/Submit Without an Estimate/i)).toBeTruthy();
-    expect(screen.getByRole('link', { name: /Use Estimator/i }).getAttribute('href')).toBe('#estimate');
+    fireEvent.click(screen.getByRole('button', { name: /Get an Estimate First/i }));
+    expect(onUseEstimator).toHaveBeenCalledTimes(1);
     expect(screen.getByLabelText(/Full Name/i)).toBeTruthy();
     expect(screen.getByLabelText(/Email/i)).toBeTruthy();
     expect(screen.getByLabelText(/Item Type/i)).toBeTruthy();
@@ -73,11 +75,12 @@ describe('QuoteSubmitForm', () => {
     expect(screen.getByLabelText(/^Quantity/i).value).toBe('12');
     expect(screen.getByLabelText(/Digitizing Needed/i).value).toBe('yes');
     expect(screen.getByLabelText(/Quote request details/i).textContent).toContain('Hat / Cap');
+    expect(screen.getByText(/Your estimate details are included with this request/i)).toBeTruthy();
 
     expect(container.querySelector('input[name="itemTypeLabel"]').value).toBe('Hat / Cap');
     expect(container.querySelector('input[name="designComplexity"]').value).toBe('unsure');
     expect(container.querySelector('input[name="designComplexityLabel"]').value).toContain('Not sure');
-    expect(container.querySelector('input[name="estimateSummary"]').value).toContain('Estimated range:');
+    expect(container.querySelector('input[name="estimateSummary"]').value).toContain('Estimated embroidery range:');
     expect(container.querySelector('input[name="estimateDetails"]').value).toContain('Digitizing fee:');
   });
 

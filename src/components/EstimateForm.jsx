@@ -9,12 +9,12 @@ const digitizingOptions = [
   { value: 'unsure', label: 'Not sure' },
 ];
 
-export default function EstimateForm({ onEstimate }) {
+export default function EstimateForm({ onEstimate, initialFormData }) {
   const [formData, setFormData] = useState({
-    itemType: '',
-    quantity: '',
-    designComplexity: '',
-    digitizingNeeded: '',
+    itemType: initialFormData?.itemType || '',
+    quantity: initialFormData?.quantity || '',
+    designComplexity: initialFormData?.designComplexity || '',
+    digitizingNeeded: initialFormData?.digitizingNeeded || '',
   });
 
   const handleChange = (e) => {

@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, render, screen } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import EstimateSummary from '../EstimateSummary';
 
 const estimate = {
@@ -29,22 +29,27 @@ afterEach(() => cleanup());
 
 describe('EstimateSummary', () => {
   it('labels totals as embroidery-only and links to the quote request', () => {
-    render(<EstimateSummary estimate={estimate} formData={estimate.formData} />);
+    const onContinueToQuote = vi.fn();
+    render(<EstimateSummary estimate={estimate} formData={estimate.formData} onContinueToQuote={onContinueToQuote} />);
 
     expect(screen.getByText(/Estimated Embroidery Total/i)).toBeTruthy();
     expect(screen.getByText(/Does not include the cost of hats, apparel, or other items being embroidered/i)).toBeTruthy();
-    expect(screen.getByRole('link', { name: /Continue to Quote Request/i }).getAttribute('href')).toBe('#quote');
+    fireEvent.click(screen.getByRole('button', { name: /Continue to Quote Request/i }));
+    expect(onContinueToQuote).toHaveBeenCalledTimes(1);
   });
 
   it('links manual quote results to the quote request', () => {
+    const onContinueToQuote = vi.fn();
     render(
       <EstimateSummary
         estimate={{ formData: estimate.formData, result: { manualQuoteRequired: true } }}
         formData={estimate.formData}
+        onContinueToQuote={onContinueToQuote}
       />
     );
 
     expect(screen.getByText(/Manual Quote Required/i)).toBeTruthy();
-    expect(screen.getByRole('link', { name: /Continue to Quote Request/i }).getAttribute('href')).toBe('#quote');
+    fireEvent.click(screen.getByRole('button', { name: /Continue to Quote Request/i }));
+    expect(onContinueToQuote).toHaveBeenCalledTimes(1);
   });
 });
