@@ -1,5 +1,5 @@
 const steps = [
-  { number: 1, title: 'Choose Your Item', description: 'Select the type of item you want embroidered — hat, shirt, jacket, or bring your own.' },
+  { number: 1, title: 'Choose Your Item', description: 'Select the type of item you want embroidered, such as a hat, shirt, jacket, bag, or other available item.' },
   { number: 2, title: 'Upload Your Design', description: 'Share your logo or artwork file. We accept PNG, JPG, PDF, SVG, and more.' },
   { number: 3, title: 'Get an Estimate', description: 'Instantly see a price range based on your item type, quantity, and design complexity.' },
   { number: 4, title: 'Submit Quote Request', description: 'Send us your estimate along with your artwork and contact details.' },

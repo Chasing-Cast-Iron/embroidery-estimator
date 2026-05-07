@@ -1,10 +1,11 @@
 # Chasing Cast Iron — Custom Embroidery Estimator
 
-A React + Vite web app that lets customers get an instant price estimate for custom embroidery orders (hats, shirts, jackets, and more) and submit a quote request.
+A React + Vite web app that lets customers get an instant embroidery price estimate for hats, shirts, jackets, bags, and other available items, then submit a quote request.
 
 ## Features
 
 - **Instant Estimate Calculator** — quantity-tier pricing across 4 stitch-count tiers
+- **Embroidery-Only Pricing Note** — clarifies that blank item/apparel costs are added separately
 - **Netlify Quote Submission** — native form processing with artwork upload and email notifications
 - **Hatch Font Selector** — searchable Hatch Embroidery 3 Digitizer font list for text-only embroidery requests
 - **FAQ Accordion**, **How It Works** steps, sticky header with mobile nav

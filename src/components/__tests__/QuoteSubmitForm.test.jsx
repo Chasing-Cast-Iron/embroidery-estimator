@@ -43,6 +43,7 @@ describe('QuoteSubmitForm', () => {
     expect(form.getAttribute('netlify-honeypot')).toBe('bot-field');
     expect(form.getAttribute('enctype')).toBe('multipart/form-data');
     expect(form.querySelector('input[name="form-name"]').value).toBe('quote-request');
+    expect(form.querySelector('input[name="customerProvidedItem"]')).toBeNull();
     expect(screen.queryByTitle('Custom embroidery quote request')).toBeNull();
   });
 
@@ -59,6 +60,7 @@ describe('QuoteSubmitForm', () => {
     expect(screen.getByLabelText(/Digitizing Needed/i)).toBeTruthy();
     expect(screen.getByLabelText(/Text to Embroider/i)).toBeTruthy();
     expect(screen.getByLabelText(/Upload Logo/i)).toBeTruthy();
+    expect(screen.queryByRole('option', { name: /Customer-Provided Item/i })).toBeNull();
   });
 
   it('prefills order fields and includes hidden estimate details when an estimate exists', async () => {
@@ -176,47 +178,4 @@ describe('QuoteSubmitForm', () => {
     expect(deadlineInput.min).toBe(minDateStr);
   });
 
-  it('shows a liability warning when customer-provided item is selected', () => {
-    render(<QuoteSubmitForm estimate={null} />);
-    const itemTypeSelect = screen.getByLabelText(/Item Type/i);
-
-    expect(screen.queryByRole('alert', { name: /Higher Liability/i })).toBeNull();
-    expect(screen.queryByText(/team member will contact/i)).toBeNull();
-
-    fireEvent.change(itemTypeSelect, {
-      target: { name: 'itemType', value: 'customer-provided' },
-    });
-
-    expect(screen.getByText(/Higher Liability Order/i)).toBeTruthy();
-    expect(screen.getByText(/team member will contact/i)).toBeTruthy();
-  });
-
-  it('sets customerProvidedItem hidden field to true when customer-provided is selected', () => {
-    const { container } = render(<QuoteSubmitForm estimate={null} />);
-    const itemTypeSelect = screen.getByLabelText(/Item Type/i);
-
-    const hiddenField = container.querySelector('input[name="customerProvidedItem"]');
-    expect(hiddenField.value).toBe('false');
-
-    fireEvent.change(itemTypeSelect, {
-      target: { name: 'itemType', value: 'customer-provided' },
-    });
-
-    expect(hiddenField.value).toBe('true');
-  });
-
-  it('hides liability warning when non-customer-provided item is selected', () => {
-    render(<QuoteSubmitForm estimate={null} />);
-    const itemTypeSelect = screen.getByLabelText(/Item Type/i);
-
-    fireEvent.change(itemTypeSelect, {
-      target: { name: 'itemType', value: 'customer-provided' },
-    });
-    expect(screen.getByText(/Higher Liability Order/i)).toBeTruthy();
-
-    fireEvent.change(itemTypeSelect, {
-      target: { name: 'itemType', value: 'shirt' },
-    });
-    expect(screen.queryByText(/Higher Liability Order/i)).toBeNull();
-  });
 });

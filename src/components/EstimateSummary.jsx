@@ -3,6 +3,18 @@ import { itemOptions } from '../data/itemOptions';
 import { designComplexityOptions } from '../data/designComplexity';
 import PricingDisclaimer from './PricingDisclaimer';
 
+const itemCostNote = 'Does not include the cost of hats, apparel, or other items being embroidered. Item costs are added separately.';
+
+function QuoteRequestCta() {
+  return (
+    <div className="estimate-next-step">
+      <a className="btn btn-primary btn-lg" href="#quote">
+        Continue to Quote Request
+      </a>
+    </div>
+  );
+}
+
 export default function EstimateSummary({ estimate, formData }) {
   if (!estimate) {
     return (
@@ -31,6 +43,7 @@ export default function EstimateSummary({ estimate, formData }) {
           </p>
         </div>
         <PricingDisclaimer />
+        <QuoteRequestCta />
       </div>
     );
   }
@@ -89,15 +102,17 @@ export default function EstimateSummary({ estimate, formData }) {
       </div>
 
       <div className="estimate-total" role="status">
-        <span className="estimate-total__label">Estimated Total</span>
+        <span className="estimate-total__label">Estimated Embroidery Total</span>
         <span className="estimate-total__value">
           {result.estimatedLow === result.estimatedHigh
             ? formatCurrency(result.estimatedLow)
             : `${formatCurrency(result.estimatedLow)} – ${formatCurrency(result.estimatedHigh)}`}
         </span>
       </div>
+      <p className="estimate-item-cost-note">{itemCostNote}</p>
 
       <PricingDisclaimer />
+      <QuoteRequestCta />
     </div>
   );
 }
