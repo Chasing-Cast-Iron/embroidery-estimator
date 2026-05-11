@@ -88,9 +88,9 @@ export default function QuoteSubmitForm({ estimate, onUseEstimator }) {
     if (!currentResult || currentResult.incomplete) return 'No estimate calculated';
     if (currentResult.manualQuoteRequired) return 'Manual quote required';
     if (currentResult.isRange) {
-      return `Estimated embroidery range: ${formatRange(currentResult.estimatedLow, currentResult.estimatedHigh)}`;
+      return `Estimated total range: ${formatRange(currentResult.estimatedLow, currentResult.estimatedHigh)}`;
     }
-    return `Estimated embroidery total: ${formatRange(currentResult.estimatedLow, currentResult.estimatedHigh)}`;
+    return `Estimated total: ${formatRange(currentResult.estimatedLow, currentResult.estimatedHigh)}`;
   };
 
   const buildEstimateDetails = () => {
@@ -114,14 +114,16 @@ export default function QuoteSubmitForm({ estimate, onUseEstimator }) {
     lines.push(`Estimated stitch range: ${currentResult.stitchRange}`);
     lines.push(
       currentResult.isRange
-        ? `Price per item: ${formatRange(currentResult.pricePerItemLow, currentResult.pricePerItemHigh)}`
-        : `Price per item: ${formatCurrency(currentResult.pricePerItem)}`
+        ? `Embroidery price per item: ${formatRange(currentResult.pricePerItemLow, currentResult.pricePerItemHigh)}`
+        : `Embroidery price per item: ${formatCurrency(currentResult.pricePerItem)}`
     );
     lines.push(
       currentResult.isRange
         ? `Embroidery subtotal: ${formatRange(currentResult.embroiderySubtotalLow, currentResult.embroiderySubtotalHigh)}`
         : `Embroidery subtotal: ${formatCurrency(currentResult.embroiderySubtotal)}`
     );
+    lines.push(`Base item price: ${formatCurrency(currentResult.itemBasePrice ?? 0)}`);
+    lines.push(`Item subtotal: ${formatCurrency(currentResult.itemSubtotal ?? 0)}`);
     lines.push(`Hat/cap add-on: ${formatCurrency(currentResult.hatCapAddon)}`);
     lines.push(`Digitizing fee: ${formatRange(currentResult.digitizingLow, currentResult.digitizingHigh)}`);
     lines.push(buildEstimateSummary());

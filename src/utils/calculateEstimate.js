@@ -25,6 +25,8 @@ export function calculateEstimate({ quantity, itemType, designComplexity, digiti
   const isRange = stitchRange === "range";
 
   const item = itemOptions.find(o => o.value === itemType);
+  const itemBasePrice = item?.basePrice ?? 0;
+  const itemSubtotal = itemBasePrice * qty;
   const hasHatAddon = item ? item.hasHatAddon : false;
   const hatCapAddon = hasHatAddon ? HAT_CAP_ADDON_PER_ITEM * qty : 0;
 
@@ -60,11 +62,13 @@ export function calculateEstimate({ quantity, itemType, designComplexity, digiti
       pricePerItemHigh: highestPrice,
       embroiderySubtotalLow,
       embroiderySubtotalHigh,
+      itemBasePrice,
+      itemSubtotal,
       hatCapAddon,
       digitizingLow,
       digitizingHigh,
-      estimatedLow: embroiderySubtotalLow + hatCapAddon + digitizingLow,
-      estimatedHigh: embroiderySubtotalHigh + hatCapAddon + digitizingHigh,
+      estimatedLow: embroiderySubtotalLow + itemSubtotal + hatCapAddon + digitizingLow,
+      estimatedHigh: embroiderySubtotalHigh + itemSubtotal + hatCapAddon + digitizingHigh,
       quantity: qty
     };
   }
@@ -75,8 +79,8 @@ export function calculateEstimate({ quantity, itemType, designComplexity, digiti
   }
 
   const embroiderySubtotal = pricePerItem * qty;
-  const estimatedLow = embroiderySubtotal + hatCapAddon + digitizingLow;
-  const estimatedHigh = embroiderySubtotal + hatCapAddon + digitizingHigh;
+  const estimatedLow = embroiderySubtotal + itemSubtotal + hatCapAddon + digitizingLow;
+  const estimatedHigh = embroiderySubtotal + itemSubtotal + hatCapAddon + digitizingHigh;
 
   return {
     manualQuoteRequired: false,
@@ -85,6 +89,8 @@ export function calculateEstimate({ quantity, itemType, designComplexity, digiti
     stitchRange,
     pricePerItem,
     embroiderySubtotal,
+    itemBasePrice,
+    itemSubtotal,
     hatCapAddon,
     digitizingLow,
     digitizingHigh,

@@ -4,7 +4,7 @@ import QuoteSubmitForm from '../QuoteSubmitForm';
 
 const estimate = {
   formData: {
-    itemType: 'hat-cap',
+    itemType: '5374-perf-water-rep',
     quantity: '12',
     designComplexity: 'unsure',
     digitizingNeeded: 'yes',
@@ -18,11 +18,13 @@ const estimate = {
     pricePerItemHigh: 10.65,
     embroiderySubtotalLow: 81,
     embroiderySubtotalHigh: 127.8,
+    itemBasePrice: 9.99,
+    itemSubtotal: 119.88,
     hatCapAddon: 24,
     digitizingLow: 30,
     digitizingHigh: 75,
-    estimatedLow: 135,
-    estimatedHigh: 226.8,
+    estimatedLow: 254.88,
+    estimatedHigh: 346.68,
     quantity: 12,
   },
 };
@@ -69,18 +71,20 @@ describe('QuoteSubmitForm', () => {
     const { container } = render(<QuoteSubmitForm estimate={estimate} />);
 
     await waitFor(() => {
-      expect(screen.getByLabelText(/Item Type/i).value).toBe('hat-cap');
+      expect(screen.getByLabelText(/Item Type/i).value).toBe('5374-perf-water-rep');
     });
 
     expect(screen.getByLabelText(/^Quantity/i).value).toBe('12');
     expect(screen.getByLabelText(/Digitizing Needed/i).value).toBe('yes');
-    expect(screen.getByLabelText(/Quote request details/i).textContent).toContain('Hat / Cap');
+    expect(screen.getByLabelText(/Quote request details/i).textContent).toContain('5374 Perf Water Rep');
     expect(screen.getByText(/Your estimate details are included with this request/i)).toBeTruthy();
 
-    expect(container.querySelector('input[name="itemTypeLabel"]').value).toBe('Hat / Cap');
+    expect(container.querySelector('input[name="itemTypeLabel"]').value).toBe('5374 Perf Water Rep');
     expect(container.querySelector('input[name="designComplexity"]').value).toBe('unsure');
     expect(container.querySelector('input[name="designComplexityLabel"]').value).toContain('Not sure');
-    expect(container.querySelector('input[name="estimateSummary"]').value).toContain('Estimated embroidery range:');
+    expect(container.querySelector('input[name="estimateSummary"]').value).toContain('Estimated total range:');
+    expect(container.querySelector('input[name="estimateDetails"]').value).toContain('Base item price: $9.99');
+    expect(container.querySelector('input[name="estimateDetails"]').value).toContain('Item subtotal: $119.88');
     expect(container.querySelector('input[name="estimateDetails"]').value).toContain('Digitizing fee:');
   });
 

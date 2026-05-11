@@ -3,8 +3,6 @@ import { itemOptions } from '../data/itemOptions';
 import { designComplexityOptions } from '../data/designComplexity';
 import PricingDisclaimer from './PricingDisclaimer';
 
-const itemCostNote = 'Does not include the cost of hats, apparel, or other items being embroidered. Item costs are added separately.';
-
 function QuoteRequestCta({ onContinueToQuote }) {
   return (
     <div className="estimate-next-step">
@@ -50,6 +48,8 @@ export default function EstimateSummary({ estimate, formData, onContinueToQuote 
 
   const itemLabel = itemOptions.find(o => o.value === formData?.itemType)?.label || formData?.itemType;
   const complexityLabel = designComplexityOptions.find(o => o.value === formData?.designComplexity)?.label || '';
+  const itemBasePrice = result.itemBasePrice ?? 0;
+  const itemSubtotal = result.itemSubtotal ?? 0;
 
   return (
     <div className="estimate-summary" aria-live="polite">
@@ -68,7 +68,7 @@ export default function EstimateSummary({ estimate, formData, onContinueToQuote 
           <span className="estimate-line__value">{complexityLabel}</span>
         </div>
         <div className="estimate-line">
-          <span className="estimate-line__label">Price per item</span>
+          <span className="estimate-line__label">Embroidery price per item</span>
           <span className="estimate-line__value">
             {result.isRange
               ? `${formatCurrency(result.pricePerItemLow)} – ${formatCurrency(result.pricePerItemHigh)}`
@@ -82,6 +82,14 @@ export default function EstimateSummary({ estimate, formData, onContinueToQuote 
               ? `${formatCurrency(result.embroiderySubtotalLow)} – ${formatCurrency(result.embroiderySubtotalHigh)}`
               : formatCurrency(result.embroiderySubtotal)}
           </span>
+        </div>
+        <div className="estimate-line">
+          <span className="estimate-line__label">Base item price</span>
+          <span className="estimate-line__value">{formatCurrency(itemBasePrice)}</span>
+        </div>
+        <div className="estimate-line">
+          <span className="estimate-line__label">Item subtotal</span>
+          <span className="estimate-line__value">{formatCurrency(itemSubtotal)}</span>
         </div>
         {result.hatCapAddon > 0 && (
           <div className="estimate-line">
@@ -102,14 +110,13 @@ export default function EstimateSummary({ estimate, formData, onContinueToQuote 
       </div>
 
       <div className="estimate-total" role="status">
-        <span className="estimate-total__label">Estimated Embroidery Total</span>
+        <span className="estimate-total__label">Estimated Total</span>
         <span className="estimate-total__value">
           {result.estimatedLow === result.estimatedHigh
             ? formatCurrency(result.estimatedLow)
             : `${formatCurrency(result.estimatedLow)} – ${formatCurrency(result.estimatedHigh)}`}
         </span>
       </div>
-      <p className="estimate-item-cost-note">{itemCostNote}</p>
 
       <PricingDisclaimer />
       <QuoteRequestCta onContinueToQuote={onContinueToQuote} />

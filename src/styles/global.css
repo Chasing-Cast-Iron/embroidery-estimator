@@ -781,13 +781,6 @@ textarea.form-control {
   font-weight: 700;
 }
 
-.estimate-item-cost-note {
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-  line-height: 1.55;
-  margin: -0.25rem 0 1rem;
-}
-
 .estimate-next-step {
   margin-top: 1.25rem;
 }

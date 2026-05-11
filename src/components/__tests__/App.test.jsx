@@ -38,7 +38,7 @@ describe('App guided request flow', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /Get an Estimate First/i }));
     fireEvent.change(screen.getByLabelText(/Item Type/i), {
-      target: { name: 'itemType', value: 'hat-cap' },
+      target: { name: 'itemType', value: '5374-perf-water-rep' },
     });
     fireEvent.change(screen.getByLabelText(/^Quantity/i), {
       target: { name: 'quantity', value: '12' },
@@ -56,14 +56,14 @@ describe('App guided request flow', () => {
     });
 
     expect(screen.getByText(/Your estimate details are included with this request/i)).toBeTruthy();
-    expect(screen.getByLabelText(/Item Type/i).value).toBe('hat-cap');
+    expect(screen.getByLabelText(/Item Type/i).value).toBe('5374-perf-water-rep');
     expect(screen.getByLabelText(/^Quantity/i).value).toBe('12');
     expect(screen.getByLabelText(/Digitizing Needed/i).value).toBe('yes');
 
     fireEvent.click(screen.getByRole('button', { name: /Get an Estimate First/i }));
 
     expect(screen.getByText(/Calculate Your Estimate/i)).toBeTruthy();
-    expect(screen.getByLabelText(/Item Type/i).value).toBe('hat-cap');
+    expect(screen.getByLabelText(/Item Type/i).value).toBe('5374-perf-water-rep');
     expect(screen.getByLabelText(/^Quantity/i).value).toBe('12');
     expect(screen.getByLabelText(/Design Complexity/i).value).toBe('simple');
     expect(screen.getByLabelText(/Digitizing Needed/i).value).toBe('yes');
