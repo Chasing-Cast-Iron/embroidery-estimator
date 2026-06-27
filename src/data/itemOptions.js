@@ -6,7 +6,8 @@ export const itemOptions = [
   { value: "stocking-cap", label: "Stocking Cap", basePrice: 8.39, hasHatAddon: true },
   { value: "light-canvas-tote", label: "Light Canvas Tote", basePrice: 5.00, hasHatAddon: false },
   { value: "heavy-canvas-tote", label: "Heavy Canvas Tote", basePrice: 15.00, hasHatAddon: false },
-  { value: "zippered-tote", label: "Zippered Tote", basePrice: 15.00, hasHatAddon: false }
+  { value: "zippered-tote", label: "Zippered Tote", basePrice: 15.00, hasHatAddon: false },
+  { value: "other-item-not-included", label: "Other - $0 item not included", basePrice: 0, hasHatAddon: false }
 ];
 
 export const HAT_CAP_ADDON_PER_ITEM = 2.00;

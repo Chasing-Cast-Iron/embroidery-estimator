@@ -40,6 +40,14 @@ describe('calculateEstimate', () => {
     expect(result.estimatedLow).toBeCloseTo(152.5);
   });
 
+  it('supports an other item type with no included base item price', () => {
+    const result = calculateEstimate({ quantity: 10, itemType: 'other-item-not-included', designComplexity: 'simple', digitizingNeeded: 'no' });
+    expect(result.hatCapAddon).toBe(0);
+    expect(result.itemBasePrice).toBe(0);
+    expect(result.itemSubtotal).toBe(0);
+    expect(result.estimatedLow).toBeCloseTo(102.5);
+  });
+
   it('includes digitizing when yes', () => {
     const result = calculateEstimate({ quantity: 10, itemType: '5374-perf-water-rep', designComplexity: 'simple', digitizingNeeded: 'yes' });
     expect(result.digitizingLow).toBe(30);
