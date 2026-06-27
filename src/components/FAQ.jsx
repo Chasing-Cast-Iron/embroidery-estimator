@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: 'What items can be embroidered?',
-    a: "The estimator includes the listed hat and cap styles. If you need a different apparel or accessory option, submit a quote request and tell us about it in the notes."
+    a: "The estimator includes listed hat, cap, and tote options. If you need a different apparel or accessory option, submit a quote request and tell us about it in the notes."
   },
   {
     q: "What's the minimum order?",

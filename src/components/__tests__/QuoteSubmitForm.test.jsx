@@ -64,6 +64,9 @@ describe('QuoteSubmitForm', () => {
     expect(screen.getByLabelText(/Digitizing Needed/i)).toBeTruthy();
     expect(screen.getByLabelText(/Text to Embroider/i)).toBeTruthy();
     expect(screen.getByLabelText(/Upload Logo/i)).toBeTruthy();
+    expect(screen.getByRole('option', { name: /Light Canvas Tote/i })).toBeTruthy();
+    expect(screen.getByRole('option', { name: /Heavy Canvas Tote/i })).toBeTruthy();
+    expect(screen.getByRole('option', { name: /Zippered Tote/i })).toBeTruthy();
     expect(screen.queryByRole('option', { name: /Customer-Provided Item/i })).toBeNull();
   });
 

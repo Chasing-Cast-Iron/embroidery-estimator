@@ -14,9 +14,6 @@ export function calculateEstimate({ quantity, itemType, designComplexity, digiti
   }
 
   const quantityTier = getQuantityTier(qty);
-  if (quantityTier === "351+") {
-    return { manualQuoteRequired: true };
-  }
   if (!quantityTier) {
     return { manualQuoteRequired: false, incomplete: true };
   }
@@ -57,7 +54,7 @@ export function calculateEstimate({ quantity, itemType, designComplexity, digiti
       manualQuoteRequired: false,
       isRange: true,
       quantityTier,
-      stitchRange: "1–18,000 stitches (estimated)",
+      stitchRange: "1–24,000 stitches (estimated)",
       pricePerItemLow: lowestPrice,
       pricePerItemHigh: highestPrice,
       embroiderySubtotalLow,
