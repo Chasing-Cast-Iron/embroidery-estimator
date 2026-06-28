@@ -19,9 +19,27 @@ export const designComplexityOptions = [
   },
   {
     value: "large",
-    label: "Large or complex design",
-    stitchRange: "12001-18000",
-    stitchDescription: "12,001–18,000 stitches"
+    label: "Large design",
+    stitchRange: "12001-15000",
+    stitchDescription: "12,001–15,000 stitches"
+  },
+  {
+    value: "xlarge",
+    label: "Extra large design",
+    stitchRange: "15001-18000",
+    stitchDescription: "15,001–18,000 stitches"
+  },
+  {
+    value: "complex",
+    label: "Complex design",
+    stitchRange: "18001-21000",
+    stitchDescription: "18,001–21,000 stitches"
+  },
+  {
+    value: "very-complex",
+    label: "Very complex design",
+    stitchRange: "21001-24000",
+    stitchDescription: "21,001–24,000 stitches"
   },
   {
     value: "manual",

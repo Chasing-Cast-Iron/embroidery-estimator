@@ -3,12 +3,9 @@ export function getQuantityTier(quantity) {
   if (isNaN(qty) || qty < 1) return null;
   if (qty === 1) return "1";
   if (qty <= 3) return "2-3";
-  if (qty <= 7) return "4-7";
-  if (qty <= 15) return "8-15";
-  if (qty <= 30) return "16-30";
-  if (qty <= 75) return "31-75";
-  if (qty <= 125) return "76-125";
-  if (qty <= 175) return "126-175";
-  if (qty <= 350) return "176-350";
-  return "351+";
+  if (qty <= 9) return "4-9";
+  if (qty <= 24) return "10-24";
+  if (qty <= 49) return "25-49";
+  if (qty <= 100) return "50-100";
+  return "100+";
 }
