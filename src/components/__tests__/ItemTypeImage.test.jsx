@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import ItemTypeImage from '../ItemTypeImage';
 
 afterEach(() => cleanup());
@@ -26,6 +26,18 @@ describe('ItemTypeImage', () => {
   it('renders nothing for an unknown item type', () => {
     const { container } = render(<ItemTypeImage itemType="unknown-item" />);
     expect(container.firstChild).toBeNull();
+  });
+
+  it('hides a failed image and renders again when the item type changes', () => {
+    const { container, rerender } = render(<ItemTypeImage itemType="richardson-112fp" />);
+
+    fireEvent.error(screen.getByRole('img', { name: 'Richardson 112 trucker hat' }));
+    expect(container.firstChild).toBeNull();
+
+    rerender(<ItemTypeImage itemType="c819-realtree" />);
+    const img = screen.getByRole('img', { name: 'C819 RealTree hat' });
+    expect(img).toBeTruthy();
+    expect(img.getAttribute('src')).toContain('7da1758c-70e2-422b-9c2c-458227e82f97');
   });
 
   it('renders correct image for each item type that has a reference photo', () => {
