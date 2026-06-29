@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { itemOptions } from '../data/itemOptions';
 import { designComplexityOptions } from '../data/designComplexity';
 import { calculateEstimate } from '../utils/calculateEstimate';
+import ItemTypeImage from './ItemTypeImage';
 
 const digitizingOptions = [
   { value: 'no', label: 'No — I have an embroidery file' },
@@ -52,6 +53,7 @@ export default function EstimateForm({ onEstimate, initialFormData }) {
               <option key={opt.value} value={opt.value}>{opt.label}</option>
             ))}
           </select>
+          <ItemTypeImage itemType={formData.itemType} />
         </div>
 
         <div className="form-group">
