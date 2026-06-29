@@ -4,6 +4,7 @@ import { designComplexityOptions } from '../data/designComplexity';
 import { formatCurrency } from '../utils/formatCurrency';
 import { getHatchFontSizeRange } from '../utils/hatchFontFormatting';
 import HatchFontSelector from './HatchFontSelector';
+import ItemTypeImage from './ItemTypeImage';
 import PricingDisclaimer from './PricingDisclaimer';
 
 const NETLIFY_FORM_NAME = 'quote-request';
@@ -320,6 +321,7 @@ export default function QuoteSubmitForm({ estimate, onUseEstimator }) {
               <option value="">- Select item -</option>
               {itemOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
+            <ItemTypeImage itemType={effectiveFormData.itemType} />
           </div>
           <div className="form-group">
             <label htmlFor="q-qty">Quantity <span className="required" aria-hidden="true">*</span></label>
