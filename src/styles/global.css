@@ -600,12 +600,26 @@ textarea.form-control {
   margin-top: 0.65rem;
   border: 1px solid var(--color-border);
   background: var(--color-surface-alt);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 160px;
   overflow: hidden;
+}
+
+.item-type-image__button {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-type-image__button:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: -3px;
 }
 
 .item-type-image__img {
@@ -613,6 +627,51 @@ textarea.form-control {
   height: 100%;
   object-fit: contain;
   object-position: center;
+}
+
+.item-type-image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(22, 22, 22, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.item-type-image-modal__content {
+  position: relative;
+  max-width: min(92vw, 980px);
+  max-height: 88vh;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 1rem;
+}
+
+.item-type-image-modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.item-type-image-modal__close:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.item-type-image-modal__img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(88vh - 2rem);
+  object-fit: contain;
 }
 
 .upload-fallback-note {
