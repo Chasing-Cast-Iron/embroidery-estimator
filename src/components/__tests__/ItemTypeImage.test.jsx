@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import ItemTypeImage from '../ItemTypeImage';
 
 afterEach(() => cleanup());
@@ -26,6 +26,19 @@ describe('ItemTypeImage', () => {
   it('renders nothing for an unknown item type', () => {
     const { container } = render(<ItemTypeImage itemType="unknown-item" />);
     expect(container.firstChild).toBeNull();
+  });
+
+  it('opens an expanded image dialog and closes it', () => {
+    render(<ItemTypeImage itemType="5374-perf-water-rep" />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Expand Water Repellent Perf Hat' }));
+
+    const dialog = screen.getByRole('dialog', { name: 'Water Repellent Perf Hat' });
+    const expandedImg = within(dialog).getByRole('img', { name: 'Water Repellent Perf Hat' });
+    expect(expandedImg.getAttribute('src')).toBe('/item-type-images/water-repellent-perf-hat.webp');
+
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Close expanded image' }));
+    expect(screen.queryByRole('dialog', { name: 'Water Repellent Perf Hat' })).toBeNull();
   });
 
   it('hides a failed image and renders again when the item type changes', () => {
