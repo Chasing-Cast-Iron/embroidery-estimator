@@ -22,6 +22,14 @@ describe('App guided request flow', () => {
     expect(screen.queryByText(/Finish Your Quote Request/i)).toBeNull();
   });
 
+  it('shows the embroidery phone number and email contact link in the footer', () => {
+    render(<App />);
+
+    expect(screen.getByText(/Call 218-544-0071/i)).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'EricksonEmbroidery@gmail.com' }).getAttribute('href'))
+      .toBe('mailto:EricksonEmbroidery@gmail.com');
+  });
+
   it('shows the quote form without requiring an estimate', () => {
     render(<App />);
 
