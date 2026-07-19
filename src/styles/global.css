@@ -1206,6 +1206,17 @@ textarea.form-control {
   margin-bottom: 0.35rem;
 }
 
+.footer__contact a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.footer__contact a:hover,
+.footer__contact a:focus-visible {
+  color: var(--color-accent);
+}
+
 .footer__disclaimer {
   font-size: 0.8rem;
   color: rgba(255,255,255,0.6);
