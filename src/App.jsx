@@ -45,10 +45,19 @@ export default function App() {
           <div className="container">
             <div className="section-header">
               <h2>Start Your Embroidery Request</h2>
-              <p>Choose the path that fits where you are today. You can get a price range first or submit your quote request now.</p>
+              <p>Choose the path that fits where you are today. You can submit your quote request now or get a price range first.</p>
             </div>
 
             <div className="request-paths" role="group" aria-label="Choose request path">
+              <button
+                type="button"
+                className={`request-path${activeRequestPath === 'quote' ? ' is-active' : ''}`}
+                aria-pressed={activeRequestPath === 'quote'}
+                onClick={() => showQuotePath()}
+              >
+                <span className="request-path__label">Submit a Quote Request</span>
+                <span className="request-path__text">Send your artwork, contact details, and order notes right away. You can use the price estimator if you prefer.</span>
+              </button>
               <button
                 type="button"
                 className={`request-path${activeRequestPath === 'estimate' ? ' is-active' : ''}`}
@@ -57,15 +66,6 @@ export default function App() {
               >
                 <span className="request-path__label">Get an Estimate First</span>
                 <span className="request-path__text">Answer a few pricing questions, then finish the quote request with your estimate included.</span>
-              </button>
-              <button
-                type="button"
-                className={`request-path${activeRequestPath === 'quote' ? ' is-active' : ''}`}
-                aria-pressed={activeRequestPath === 'quote'}
-                onClick={() => showQuotePath()}
-              >
-                <span className="request-path__label">Submit a Quote Request</span>
-                <span className="request-path__text">Skip the estimate and send your artwork, contact details, and order notes right away.</span>
               </button>
             </div>
 

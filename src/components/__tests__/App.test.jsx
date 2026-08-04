@@ -12,12 +12,15 @@ afterEach(() => {
 });
 
 describe('App guided request flow', () => {
-  it('starts with estimate and quote path choices', () => {
+  it('starts with quote submission before the estimate option', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { name: /Start Your Embroidery Request/i })).toBeTruthy();
-    expect(screen.getByRole('button', { name: /Get an Estimate First/i })).toBeTruthy();
-    expect(screen.getByRole('button', { name: /Submit a Quote Request/i })).toBeTruthy();
+    const pathButtons = screen.getByRole('group', { name: /Choose request path/i }).querySelectorAll('button');
+    expect([...pathButtons].map(button => button.textContent)).toEqual([
+      expect.stringContaining('Submit a Quote Request'),
+      expect.stringContaining('Get an Estimate First'),
+    ]);
     expect(screen.queryByText(/Calculate Your Estimate/i)).toBeNull();
     expect(screen.queryByText(/Finish Your Quote Request/i)).toBeNull();
   });
