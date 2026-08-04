@@ -203,6 +203,7 @@ describe('QuoteSubmitForm', () => {
     expect(confirmation.textContent).toContain('We received your quote request and will be in touch soon.');
     expect(fetchMock).toHaveBeenCalledWith('/', expect.objectContaining({ method: 'POST' }));
     expect(screen.queryByRole('button', { name: /Submit Quote Request/i })).toBeNull();
+    expect(document.activeElement).toBe(confirmation);
   });
 
 });
