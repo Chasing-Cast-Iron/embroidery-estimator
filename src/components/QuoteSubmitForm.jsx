@@ -192,8 +192,8 @@ export default function QuoteSubmitForm({ estimate, onUseEstimator }) {
   if (status === 'success') {
     return (
       <div className="success-message" role="alert">
-        <h3>Quote Request Sent</h3>
-        <p>Thanks for reaching out. We'll review your request and get back to you within 1-2 business days.</p>
+        <h3>Thank You — Your Quote Request Is Sent</h3>
+        <p>We received your quote request and will be in touch soon.</p>
       </div>
     );
   }
