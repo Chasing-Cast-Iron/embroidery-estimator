@@ -29,7 +29,10 @@ const estimate = {
   },
 };
 
-afterEach(() => cleanup());
+afterEach(() => {
+  cleanup();
+  vi.unstubAllGlobals();
+});
 
 function getForm(container) {
   return container.querySelector('form[name="quote-request"]');
@@ -186,6 +189,21 @@ describe('QuoteSubmitForm', () => {
     const minDateStr = minDate.toISOString().slice(0, 10);
 
     expect(deadlineInput.min).toBe(minDateStr);
+  });
+
+  it('shows a thank-you confirmation after a successful submission', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const { container } = render(<QuoteSubmitForm estimate={null} />);
+    fireEvent.submit(getForm(container));
+
+    const confirmation = await screen.findByRole('alert');
+    expect(confirmation.textContent).toContain('Thank You — Your Quote Request Is Sent');
+    expect(confirmation.textContent).toContain('We received your quote request and will be in touch soon.');
+    expect(fetchMock).toHaveBeenCalledWith('/', expect.objectContaining({ method: 'POST' }));
+    expect(screen.queryByRole('button', { name: /Submit Quote Request/i })).toBeNull();
+    expect(document.activeElement).toBe(confirmation);
   });
 
 });

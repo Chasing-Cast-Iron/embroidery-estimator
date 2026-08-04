@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { itemOptions } from '../data/itemOptions';
 import { designComplexityOptions } from '../data/designComplexity';
 import { formatCurrency } from '../utils/formatCurrency';
@@ -69,6 +69,14 @@ export default function QuoteSubmitForm({ estimate, onUseEstimator }) {
   const [fileError, setFileError] = useState('');
   const [status, setStatus] = useState('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const successMessageRef = useRef(null);
+
+  useEffect(() => {
+    if (status !== 'success') return;
+
+    successMessageRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'center' });
+    successMessageRef.current?.focus({ preventScroll: true });
+  }, [status]);
 
   const itemTypeLabel = getOptionLabel(itemOptions, estimateFormData.itemType);
   const designComplexityLabel = getOptionLabel(designComplexityOptions, estimateFormData.designComplexity);
@@ -191,9 +199,9 @@ export default function QuoteSubmitForm({ estimate, onUseEstimator }) {
 
   if (status === 'success') {
     return (
-      <div className="success-message" role="alert">
-        <h3>Quote Request Sent</h3>
-        <p>Thanks for reaching out. We'll review your request and get back to you within 1-2 business days.</p>
+      <div className="success-message" role="alert" ref={successMessageRef} tabIndex="-1">
+        <h3>Thank You — Your Quote Request Is Sent</h3>
+        <p>We received your quote request and will be in touch soon.</p>
       </div>
     );
   }
