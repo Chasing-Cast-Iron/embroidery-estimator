@@ -206,4 +206,20 @@ describe('QuoteSubmitForm', () => {
     expect(document.activeElement).toBe(confirmation);
   });
 
+  it('notifies the app after a successful submission when a success handler is provided', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    const onSubmissionSuccess = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+
+    const { container } = render(
+      <QuoteSubmitForm estimate={null} onSubmissionSuccess={onSubmissionSuccess} />,
+    );
+    fireEvent.submit(getForm(container));
+
+    await waitFor(() => {
+      expect(onSubmissionSuccess).toHaveBeenCalledTimes(1);
+    });
+    expect(screen.queryByText(/Thank You — Your Quote Request Is Sent/i)).toBeNull();
+  });
+
 });

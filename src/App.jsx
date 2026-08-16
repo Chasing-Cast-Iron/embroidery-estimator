@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
@@ -7,11 +7,40 @@ import EstimateSummary from './components/EstimateSummary';
 import QuoteSubmitForm from './components/QuoteSubmitForm';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
+import ThankYouPage from './components/ThankYouPage';
+import { trackPageView } from './utils/analytics';
+
+const THANK_YOU_PATH = '/thank-you';
+const QUOTE_SUBMITTED_SESSION_KEY = 'quote-request-submitted';
+
+function getCurrentPath() {
+  if (typeof window === 'undefined') return '/';
+  return window.location.pathname.replace(/\/+$/, '') || '/';
+}
+
+function canShowThankYouPage() {
+  return getCurrentPath() === THANK_YOU_PATH
+    && window.sessionStorage.getItem(QUOTE_SUBMITTED_SESSION_KEY) === 'true';
+}
 
 export default function App() {
   const [estimate, setEstimate] = useState(null);
   const [activeRequestPath, setActiveRequestPath] = useState(null);
+  const [showThankYouPage, setShowThankYouPage] = useState(canShowThankYouPage);
   const quotePanelRef = useRef(null);
+
+  useEffect(() => {
+    if (showThankYouPage) {
+      trackPageView(THANK_YOU_PATH);
+      return;
+    }
+
+    if (getCurrentPath() === THANK_YOU_PATH) {
+      window.history.replaceState({}, '', '/');
+    }
+
+    trackPageView(getCurrentPath());
+  }, [showThankYouPage]);
 
   const focusQuotePanel = () => {
     setTimeout(() => {
@@ -35,6 +64,29 @@ export default function App() {
     setEstimate(data);
     showQuotePath({ focus: true });
   };
+
+  const handleSubmissionSuccess = () => {
+    window.sessionStorage.setItem(QUOTE_SUBMITTED_SESSION_KEY, 'true');
+    window.history.pushState({}, '', THANK_YOU_PATH);
+    setShowThankYouPage(true);
+  };
+
+  const handleSubmitAnotherRequest = () => {
+    window.sessionStorage.removeItem(QUOTE_SUBMITTED_SESSION_KEY);
+    window.history.replaceState({}, '', '/');
+    setShowThankYouPage(false);
+    showQuotePath({ focus: true });
+  };
+
+  if (showThankYouPage) {
+    return (
+      <>
+        <Header />
+        <ThankYouPage onSubmitAnotherRequest={handleSubmitAnotherRequest} />
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -95,7 +147,11 @@ export default function App() {
                 ref={quotePanelRef}
                 tabIndex="-1"
               >
-                <QuoteSubmitForm estimate={estimate} onUseEstimator={showEstimatePath} />
+                <QuoteSubmitForm
+                  estimate={estimate}
+                  onUseEstimator={showEstimatePath}
+                  onSubmissionSuccess={handleSubmissionSuccess}
+                />
               </div>
             )}
           </div>

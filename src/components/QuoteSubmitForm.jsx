@@ -48,7 +48,7 @@ function isAcceptedFile(file) {
   return ACCEPTED_FILE_EXTENSIONS.some(extension => file.name.toLowerCase().endsWith(extension));
 }
 
-export default function QuoteSubmitForm({ estimate, onUseEstimator }) {
+export default function QuoteSubmitForm({ estimate, onUseEstimator, onSubmissionSuccess }) {
   const estimateFormData = estimate?.formData || {};
   const hasEstimate = Boolean(estimate && estimateFormData.itemType);
   const currentResult = hasEstimate ? estimate?.result : null;
@@ -188,6 +188,11 @@ export default function QuoteSubmitForm({ estimate, onUseEstimator }) {
 
       if (!response.ok) {
         throw new Error('Netlify form submission failed.');
+      }
+
+      if (onSubmissionSuccess) {
+        onSubmissionSuccess();
+        return;
       }
 
       setStatus('success');
