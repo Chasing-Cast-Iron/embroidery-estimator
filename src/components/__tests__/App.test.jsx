@@ -4,11 +4,14 @@ import App from '../../App';
 
 beforeEach(() => {
   Element.prototype.scrollIntoView = vi.fn();
+  window.history.replaceState({}, '', '/');
+  window.sessionStorage.clear();
 });
 
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
 });
 
 describe('App guided request flow', () => {
@@ -78,5 +81,37 @@ describe('App guided request flow', () => {
     expect(screen.getByLabelText(/^Quantity/i).value).toBe('12');
     expect(screen.getByLabelText(/Design Complexity/i).value).toBe('simple');
     expect(screen.getByLabelText(/Digitizing Needed/i).value).toBe('yes');
+  });
+
+  it('takes a successful submission to the guarded thank-you page and tracks it in GA4', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    const gtagMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    vi.stubGlobal('gtag', gtagMock);
+    render(<App />);
+
+    fireEvent.click(screen.getByRole('button', { name: /Submit a Quote Request/i }));
+    fireEvent.submit(document.querySelector('form[name="quote-request"]'));
+
+    await screen.findByRole('heading', { name: /Thank You — Your Quote Request Is Sent/i });
+
+    expect(window.location.pathname).toBe('/thank-you');
+    expect(gtagMock).toHaveBeenCalledWith(
+      'event',
+      'page_view',
+      expect.objectContaining({ page_path: '/thank-you' }),
+    );
+  });
+
+  it('redirects direct visitors away from the guarded thank-you page', async () => {
+    window.history.replaceState({}, '', '/thank-you');
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/');
+    });
+    expect(screen.queryByRole('heading', { name: /Thank You — Your Quote Request Is Sent/i })).toBeNull();
+    expect(screen.getByRole('heading', { name: /Start Your Embroidery Request/i })).toBeTruthy();
   });
 });
