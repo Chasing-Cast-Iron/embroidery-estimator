@@ -12,11 +12,11 @@ export default function Header() {
     <header className="header">
       <div className="header__inner">
         <div className="header__logo">
-          <span className="header__logo-name">Chasing Cast Iron</span>
+          <span className="header__logo-name">Intrlup</span>
           <span className="header__logo-sub">Custom Embroidery</span>
         </div>
         <nav className="header__nav" aria-label="Main navigation">
-          <a href="https://chasingcastiron.com/">Home</a>
+          <a href="/">Home</a>
           <a href="#how-it-works" onClick={(e) => { e.preventDefault(); scrollTo('how-it-works'); }}>How It Works</a>
           <a href="#request" onClick={(e) => { e.preventDefault(); scrollTo('request'); }}>Start Request</a>
           <a href="#faq" onClick={(e) => { e.preventDefault(); scrollTo('faq'); }}>FAQ</a>
@@ -38,7 +38,7 @@ export default function Header() {
       </div>
       {menuOpen && (
         <nav className="header__mobile-nav" aria-label="Mobile navigation">
-          <a href="https://chasingcastiron.com/">Home</a>
+          <a href="/">Home</a>
           <a href="#how-it-works" onClick={(e) => { e.preventDefault(); scrollTo('how-it-works'); }}>How It Works</a>
           <a href="#request" onClick={(e) => { e.preventDefault(); scrollTo('request'); }}>Start Request</a>
           <a href="#faq" onClick={(e) => { e.preventDefault(); scrollTo('faq'); }}>FAQ</a>

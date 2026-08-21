@@ -1,4 +1,6 @@
-# Chasing Cast Iron — Custom Embroidery Estimator
+# Intrlup Custom Embroidery Estimator
+
+[Open the live Intrlup Custom Embroidery estimator](https://custom-embroidery-estimate.netlify.app/)
 
 A React + Vite web app that lets customers get an instant embroidery price estimate for listed hat and cap items, then submit a quote request.
 

@@ -96,6 +96,7 @@ describe('App guided request flow', () => {
     await screen.findByRole('heading', { name: /Thank You — Your Quote Request Is Sent/i });
 
     expect(window.location.pathname).toBe('/thank-you');
+    expect(screen.getByRole('link', { name: 'Home' }).getAttribute('href')).toBe('/');
     expect(gtagMock).toHaveBeenCalledWith(
       'event',
       'page_view',
