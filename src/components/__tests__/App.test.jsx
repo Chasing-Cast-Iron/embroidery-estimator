@@ -32,8 +32,8 @@ describe('App guided request flow', () => {
     render(<App />);
 
     expect(screen.getByText(/Call 218-544-0071/i)).toBeTruthy();
-    expect(screen.getByRole('link', { name: 'EricksonEmbroidery@gmail.com' }).getAttribute('href'))
-      .toBe('mailto:EricksonEmbroidery@gmail.com');
+    expect(screen.getByRole('link', { name: 'Intrlup@gmail.com' }).getAttribute('href'))
+      .toBe('mailto:Intrlup@gmail.com');
   });
 
   it('shows the quote form without requiring an estimate', () => {

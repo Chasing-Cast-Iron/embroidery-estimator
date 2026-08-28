@@ -5,7 +5,7 @@ export default function Footer() {
       <p className="footer__name">Intrlup Custom Embroidery</p>
       <p className="footer__contact">
         Call 218-544-0071 or email{' '}
-        <a href="mailto:EricksonEmbroidery@gmail.com">EricksonEmbroidery@gmail.com</a>{' '}
+        <a href="mailto:Intrlup@gmail.com">Intrlup@gmail.com</a>{' '}
         for custom embroidery orders.
       </p>
       <p className="footer__copy">© {year} Intrlup Custom Embroidery. All rights reserved.</p>
