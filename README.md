@@ -61,7 +61,7 @@ hatchFontJoinMethod
 Netlify detects the form from the static blueprint in `index.html`, while the React form in the quote section provides the customer-facing UI.
 When a visitor calculates an estimate first, the order fields are prefilled and the estimate summary/details are included automatically.
 
-In Netlify, add a form notification for the `quote-request` form and send it to `EricksonEmbroidery@gmail.com`.
+In Netlify, add a form notification for the `quote-request` form and send it to `Intrlup@gmail.com`.
 
 ## GoDaddy
 
@@ -84,7 +84,7 @@ Deploy the app with Netlify:
 - Connect this GitHub repository to Netlify.
 - Netlify can read `netlify.toml`, which sets the build command to `npm run build` and the publish directory to `dist`.
 - In Netlify, verify form detection is enabled.
-- Add a form notification for `quote-request` to email `EricksonEmbroidery@gmail.com`.
+- Add a form notification for `quote-request` to email `Intrlup@gmail.com`.
 
 The GitHub Actions workflow now runs CI only: lint, tests, and production build.
 
