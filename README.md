@@ -12,7 +12,7 @@ A React + Vite web app that lets customers get an instant embroidery price estim
 - **Netlify Quote Submission** — native form processing with artwork upload and email notifications
 - **Hatch Font Selector** — searchable Hatch Embroidery 3 Digitizer font list for text-only embroidery requests
 - **FAQ Accordion**, **How It Works** steps, sticky header with mobile nav
-- Fully mobile-responsive with a burgundy/warm brand palette
+- Fully mobile-responsive with the Chasing Cast Iron blue-and-charcoal brand palette
 
 ## Getting Started
 
