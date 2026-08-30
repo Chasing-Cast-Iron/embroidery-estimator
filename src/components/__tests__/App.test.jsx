@@ -45,6 +45,16 @@ describe('App guided request flow', () => {
     expect(screen.getByText(/Submit Without an Estimate/i)).toBeTruthy();
     expect(screen.getByLabelText(/Full Name/i)).toBeTruthy();
     expect(screen.getByLabelText(/Item Type/i).value).toBe('');
+    expect(screen.getByRole('link', { name: 'Home' }).getAttribute('href'))
+      .toBe('https://chasingcastiron.com/');
+
+    fireEvent.click(screen.getByRole('button', { name: /Toggle navigation menu/i }));
+
+    expect(screen.getAllByRole('link', { name: 'Home' }))
+      .toHaveLength(2);
+    expect(screen.getAllByRole('link', { name: 'Home' })
+      .every(link => link.getAttribute('href') === 'https://chasingcastiron.com/'))
+      .toBe(true);
   });
 
   it('reveals the quote form after an estimate and carries estimate fields forward', async () => {
@@ -96,7 +106,8 @@ describe('App guided request flow', () => {
     await screen.findByRole('heading', { name: /Thank You — Your Quote Request Is Sent/i });
 
     expect(window.location.pathname).toBe('/thank-you');
-    expect(screen.getByRole('link', { name: 'Home' }).getAttribute('href')).toBe('/');
+    expect(screen.getByRole('link', { name: 'Home' }).getAttribute('href'))
+      .toBe('https://chasingcastiron.com/');
     expect(gtagMock).toHaveBeenCalledWith(
       'event',
       'page_view',
