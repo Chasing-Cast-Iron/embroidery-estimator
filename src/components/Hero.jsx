@@ -14,11 +14,12 @@ export default function Hero() {
             <img
               className="hero__service-logo"
               src={intrlupCustomEmbroideryLogo}
-              alt="Intrlup Custom Embroidery"
+              alt="Intrlup™ Custom Embroidery"
             />
+            <span className="hero__logo-trademark" aria-hidden="true">™</span>
           </div>
           <div className="brand-rule" aria-hidden="true" />
-          <p className="hero__eyebrow">Intrlup Custom Embroidery</p>
+          <p className="hero__eyebrow">Intrlup™ Custom Embroidery</p>
           <h1 className="hero__headline" id="hero-headline">
             Start an Embroidery Request
           </h1>

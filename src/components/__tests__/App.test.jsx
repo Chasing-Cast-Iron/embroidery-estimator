@@ -31,6 +31,7 @@ describe('App guided request flow', () => {
   it('shows the embroidery phone number and email contact link in the footer', () => {
     render(<App />);
 
+    expect(screen.getAllByText('Intrlup™ Custom Embroidery')).toHaveLength(2);
     expect(screen.getByText(/Call 218-544-0071/i)).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Intrlup@gmail.com' }).getAttribute('href'))
       .toBe('mailto:Intrlup@gmail.com');

@@ -12,7 +12,7 @@ export default function Header() {
     <header className="header">
       <div className="header__inner">
         <div className="header__logo">
-          <span className="header__logo-name">Intrlup</span>
+          <span className="header__logo-name">Intrlup™</span>
           <span className="header__logo-sub">Custom Embroidery</span>
         </div>
         <nav className="header__nav" aria-label="Main navigation">
