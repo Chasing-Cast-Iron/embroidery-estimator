@@ -267,8 +267,8 @@ section { padding: var(--section-pad); }
 }
 
 .hero__panel {
-  background: var(--color-primary-dark);
-  color: #f7f7f7;
+  background: var(--color-surface-alt);
+  color: var(--color-text);
   padding: clamp(1.35rem, 2.6vw, 2.35rem) clamp(1.8rem, 3.6vw, 3.4rem);
   display: flex;
   flex-direction: column;
@@ -293,7 +293,7 @@ section { padding: var(--section-pad); }
 .hero__service-logo {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.18));
+  filter: none;
 }
 
 .hero__panel .brand-rule {
@@ -315,13 +315,14 @@ section { padding: var(--section-pad); }
   font-size: clamp(1.45rem, 2.45vw, 1.95rem);
   font-weight: 400;
   line-height: 1.15;
+  color: var(--color-text);
   letter-spacing: 0.08em;
   margin-bottom: 0.65rem;
 }
 
 .hero__subheading {
   font-size: 0.9rem;
-  color: rgba(247, 247, 247, 0.78);
+  color: var(--color-text-muted);
   max-width: 440px;
   margin: 0 auto 1rem;
   line-height: 1.55;
@@ -347,7 +348,7 @@ section { padding: var(--section-pad); }
 
 .hero__note {
   font-size: 0.86rem;
-  color: rgba(247, 247, 247, 0.66);
+  color: var(--color-text-muted);
 }
 
 .hero__image-wrap {
