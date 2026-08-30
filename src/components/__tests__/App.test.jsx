@@ -32,6 +32,7 @@ describe('App guided request flow', () => {
     render(<App />);
 
     expect(screen.getAllByText('Intrlup™ Custom Embroidery')).toHaveLength(2);
+    expect(screen.getByRole('img', { name: 'Intrlup™ Custom Embroidery' })).toBeTruthy();
     expect(screen.getByText(/Call 218-544-0071/i)).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Intrlup@gmail.com' }).getAttribute('href'))
       .toBe('mailto:Intrlup@gmail.com');

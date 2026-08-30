@@ -16,7 +16,6 @@ export default function Hero() {
               src={intrlupCustomEmbroideryLogo}
               alt="Intrlup™ Custom Embroidery"
             />
-            <span className="hero__logo-trademark" aria-hidden="true">™</span>
           </div>
           <div className="brand-rule" aria-hidden="true" />
           <p className="hero__eyebrow">Intrlup™ Custom Embroidery</p>

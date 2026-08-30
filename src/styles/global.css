@@ -286,7 +286,6 @@ section { padding: var(--section-pad); }
 }
 
 .hero__logo-card {
-  position: relative;
   width: min(100%, 450px);
   margin: 0 auto 0.95rem;
 }
@@ -295,17 +294,6 @@ section { padding: var(--section-pad); }
   width: 100%;
   height: auto;
   filter: none;
-}
-
-.hero__logo-trademark {
-  position: absolute;
-  top: 19%;
-  right: 4%;
-  color: #000;
-  font-family: Arial, sans-serif;
-  font-size: clamp(0.65rem, 1.55vw, 1.15rem);
-  font-weight: 700;
-  line-height: 1;
 }
 
 .hero__panel .brand-rule {
