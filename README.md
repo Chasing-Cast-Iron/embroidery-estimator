@@ -1,6 +1,6 @@
-# Intrlup Custom Embroidery Estimator
+# Intrlup™ Custom Embroidery Estimator
 
-[Open the live Intrlup Custom Embroidery estimator](https://custom-embroidery-estimate.netlify.app/)
+[Open the live Intrlup™ Custom Embroidery estimator](https://custom-embroidery-estimate.netlify.app/)
 
 A React + Vite web app that lets customers get an instant embroidery price estimate for listed hat and cap items, then submit a quote request.
 
@@ -12,7 +12,7 @@ A React + Vite web app that lets customers get an instant embroidery price estim
 - **Netlify Quote Submission** — native form processing with artwork upload and email notifications
 - **Hatch Font Selector** — searchable Hatch Embroidery 3 Digitizer font list for text-only embroidery requests
 - **FAQ Accordion**, **How It Works** steps, sticky header with mobile nav
-- Fully mobile-responsive with a burgundy/warm brand palette
+- Fully mobile-responsive with the Chasing Cast Iron blue-and-charcoal brand palette
 
 ## Getting Started
 

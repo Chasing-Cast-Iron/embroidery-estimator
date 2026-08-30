@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Righteous&display=swap');
 
 /* -- Custom Properties -- */
 :root {
-  --color-primary: #ff6900;
+  --color-primary: #4370d9;
   --color-primary-dark: #161616;
-  --color-primary-light: #fff4eb;
-  --color-accent: #ff6900;
-  --color-bg: #ffffff;
+  --color-primary-light: #edf1fc;
+  --color-accent: #507de5;
+  --color-bg: #f7f7f7;
   --color-surface: #ffffff;
   --color-surface-alt: #f7f7f7;
-  --color-border: #d8d8d8;
+  --color-border: #e2e2e2;
   --color-border-dark: #161616;
   --color-text: #1b1b1b;
   --color-text-muted: #5e5e5e;
@@ -18,11 +18,11 @@
   --color-success-bg: #edf8ef;
   --color-error: #9b1c1c;
   --color-error-bg: #fff1f1;
-  --color-warning-bg: #fff8f0;
-  --color-warning-border: #ff6900;
+  --color-warning-bg: #f3f6fe;
+  --color-warning-border: #4370d9;
 
-  --font-heading: 'Mulish', 'Quicksand', Arial, sans-serif;
-  --font-body: 'Quicksand', 'Mulish', Arial, sans-serif;
+  --font-heading: 'Righteous', serif, system-ui;
+  --font-body: 'Josefin Sans', Arial, sans-serif;
 
   --radius: 2px;
   --radius-lg: 2px;
@@ -232,14 +232,14 @@ section { padding: var(--section-pad); }
 
 .btn-accent {
   background: var(--color-primary);
-  color: var(--color-primary-dark);
+  color: #fff;
   border-color: var(--color-primary);
 }
 
 .btn-accent:hover {
-  background: var(--color-primary-dark);
+  background: var(--color-accent);
   color: #fff;
-  border-color: var(--color-primary-dark);
+  border-color: var(--color-accent);
 }
 
 .btn-sm { padding: 0.55rem 1.1rem; font-size: 0.72rem; min-height: 38px; }
@@ -267,8 +267,8 @@ section { padding: var(--section-pad); }
 }
 
 .hero__panel {
-  background: var(--color-primary);
-  color: #000;
+  background: var(--color-surface-alt);
+  color: var(--color-text);
   padding: clamp(1.35rem, 2.6vw, 2.35rem) clamp(1.8rem, 3.6vw, 3.4rem);
   display: flex;
   flex-direction: column;
@@ -293,10 +293,11 @@ section { padding: var(--section-pad); }
 .hero__service-logo {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.18));
+  filter: none;
 }
 
 .hero__panel .brand-rule {
+  background: var(--color-primary);
   margin: 0 auto 1.05rem;
 }
 
@@ -304,7 +305,7 @@ section { padding: var(--section-pad); }
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #161616;
+  color: var(--color-primary);
   margin-bottom: 0.65rem;
   font-weight: 600;
 }
@@ -314,12 +315,14 @@ section { padding: var(--section-pad); }
   font-size: clamp(1.45rem, 2.45vw, 1.95rem);
   font-weight: 400;
   line-height: 1.15;
+  color: var(--color-text);
+  letter-spacing: 0.08em;
   margin-bottom: 0.65rem;
 }
 
 .hero__subheading {
   font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.74);
+  color: var(--color-text-muted);
   max-width: 440px;
   margin: 0 auto 1rem;
   line-height: 1.55;
@@ -333,13 +336,23 @@ section { padding: var(--section-pad); }
   margin-bottom: 0;
 }
 
+.hero__panel .btn-primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.hero__panel .btn-primary:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
 .hero__note {
   font-size: 0.86rem;
-  color: rgba(0, 0, 0, 0.68);
+  color: var(--color-text-muted);
 }
 
 .hero__image-wrap {
-  background: #ece6dc;
+  background: var(--color-surface-alt);
   min-height: 460px;
   display: flex;
   align-items: center;
@@ -408,7 +421,7 @@ section { padding: var(--section-pad); }
   width: 46px;
   height: 46px;
   background: var(--color-primary);
-  color: var(--color-primary-dark);
+  color: #fff;
   font-weight: 700;
   font-size: 1.15rem;
   display: flex;
@@ -838,7 +851,7 @@ textarea.form-control {
 
 .estimate-total {
   background: var(--color-primary);
-  color: var(--color-primary-dark);
+  color: #fff;
   padding: 1rem 1.1rem;
   margin: 1rem 0;
   display: flex;

@@ -31,6 +31,8 @@ describe('App guided request flow', () => {
   it('shows the embroidery phone number and email contact link in the footer', () => {
     render(<App />);
 
+    expect(screen.getAllByText('Intrlup™ Custom Embroidery')).toHaveLength(2);
+    expect(screen.getByRole('img', { name: 'Intrlup™ Custom Embroidery' })).toBeTruthy();
     expect(screen.getByText(/Call 218-544-0071/i)).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Intrlup@gmail.com' }).getAttribute('href'))
       .toBe('mailto:Intrlup@gmail.com');
@@ -45,6 +47,16 @@ describe('App guided request flow', () => {
     expect(screen.getByText(/Submit Without an Estimate/i)).toBeTruthy();
     expect(screen.getByLabelText(/Full Name/i)).toBeTruthy();
     expect(screen.getByLabelText(/Item Type/i).value).toBe('');
+    expect(screen.getByRole('link', { name: 'Home' }).getAttribute('href'))
+      .toBe('https://chasingcastiron.com/');
+
+    fireEvent.click(screen.getByRole('button', { name: /Toggle navigation menu/i }));
+
+    expect(screen.getAllByRole('link', { name: 'Home' }))
+      .toHaveLength(2);
+    expect(screen.getAllByRole('link', { name: 'Home' })
+      .every(link => link.getAttribute('href') === 'https://chasingcastiron.com/'))
+      .toBe(true);
   });
 
   it('reveals the quote form after an estimate and carries estimate fields forward', async () => {
@@ -96,7 +108,8 @@ describe('App guided request flow', () => {
     await screen.findByRole('heading', { name: /Thank You — Your Quote Request Is Sent/i });
 
     expect(window.location.pathname).toBe('/thank-you');
-    expect(screen.getByRole('link', { name: 'Home' }).getAttribute('href')).toBe('/');
+    expect(screen.getByRole('link', { name: 'Home' }).getAttribute('href'))
+      .toBe('https://chasingcastiron.com/');
     expect(gtagMock).toHaveBeenCalledWith(
       'event',
       'page_view',
